@@ -17,14 +17,14 @@ export default {
   name: "Dashboard",
   components: { facebookLogin },
   data(){
-    // return{
-    //   idImage, loginImage, mailImage, faceImage,
-    //   isConnected: false,
-    //   name: '',
-    //   email: '',
-    //   personalID: '',
-    //   FB: undefined
-    // }
+    return{
+      // idImage, loginImage, mailImage, faceImage,
+      isConnected: false,
+      name: '',
+      email: '',
+      personalID: '',
+      FB: undefined
+    }
   },
   methods: {
     getUserData() {
