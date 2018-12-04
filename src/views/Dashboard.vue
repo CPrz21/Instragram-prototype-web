@@ -6,6 +6,7 @@
       @logout="onLogout"
       @sdk-loaded="sdkLoaded">
     </facebook-login>
+    <h1>{{isConnected}}</h1>
   </div>
 </template>
 
@@ -38,13 +39,13 @@ export default {
       )
     },
     sdkLoaded(payload) {
-      this.isConnected = payload.isConnected
-      this.FB = payload.FB
-      if (this.isConnected) this.getUserData()
+      this.isConnected = payload.isConnected;
+      this.FB = payload.FB;
+      if (this.isConnected) this.getUserData();
     },
     onLogin() {
-      this.isConnected = true
-      this.getUserData()
+      this.isConnected = true;
+      this.getUserData();
     },
     onLogout() {
       this.isConnected = false;
