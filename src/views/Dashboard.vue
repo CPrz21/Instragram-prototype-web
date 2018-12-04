@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     getUserData() {
+      console.log(this.FB);
       this.FB.api('/me', 'GET', { fields: 'id,name,email' },
         userInformation => {
           console.warn("data api",userInformation)
