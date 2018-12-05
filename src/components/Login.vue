@@ -1,7 +1,8 @@
 <template>
   <div>
     <button type="button" class="btn btn-primary btn-block" @click="openFbLoginDialog">Facebook Login</button>
-    <button type="button" class="btn btn-primary btn-block" @click="logoutFb">Facebook Login</button>
+    <button type="button" class="btn btn-primary btn-block" @click="logoutFb">Facebook Logout</button>
+    <button type="button" class="btn btn-primary btn-block" @click="loginStatus">Facebook Login Status</button>
   </div>
 </template>
 
@@ -49,6 +50,11 @@ export default {
       FB.logout(function(response) {
         // user is now logged out
         console.log(response);
+      });
+    },
+    loginStatus(){
+      FB.getLoginStatus(function(response) {
+          console.log(response);
       });
     }
   }
