@@ -34,7 +34,7 @@ export default {
     },
     checkLoginState: function (response) {
       if (response.status === 'connected') {
-        FB.api('/me', { fields: 'name,email,instagram_basic' }, function(profile) {
+        FB.api('/me', { fields: 'name,email' }, function(profile) {
           console.log(profile);
           console.log('Good to see you, ' + profile.name + '.');
         });
