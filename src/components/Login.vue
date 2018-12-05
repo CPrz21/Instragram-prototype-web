@@ -1,5 +1,8 @@
 <template>
-     <button type="button" class="btn btn-primary btn-block" @click="openFbLoginDialog">Facebook Login</button>
+  <div>
+    <button type="button" class="btn btn-primary btn-block" @click="openFbLoginDialog">Facebook Login</button>
+    <button type="button" class="btn btn-primary btn-block" @click="logoutFb">Facebook Login</button>
+  </div>
 </template>
 
 <script>
@@ -32,6 +35,7 @@ export default {
     checkLoginState: function (response) {
       if (response.status === 'connected') {
         FB.api('/me', { fields: 'name,email' }, function(profile) {
+          console.log(profile);
           console.log('Good to see you, ' + profile.name + '.');
         });
       } else if (response.status === 'not_authorized') {
@@ -40,6 +44,12 @@ export default {
       } else {
         // the user isn't logged in to Facebook.
       }
+    },
+    logoutFb(){
+      FB.logout(function(response) {
+        // user is now logged out
+        console.log(response);
+      });
     }
   }
 };
