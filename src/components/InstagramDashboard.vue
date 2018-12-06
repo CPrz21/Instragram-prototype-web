@@ -1,7 +1,7 @@
 <template>
   <div class="col-12 dashboard-container">
     <div class="col-12 d-flex py-5 bg-white dashboard-header">
-      <div class="col-3 text-center">
+      <div class="col-3 col-3 d-flex justify-content-center align-items-center">
         <img class="dashboard-image-account rounded-circle img-fluid" alt="Elaniin logo" :src='ElaniinLogo'>
       </div>
       <div class="col-9 d-flex flex-wrap align-items-center">
