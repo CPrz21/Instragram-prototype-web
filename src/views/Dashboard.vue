@@ -1,6 +1,6 @@
 <template>
-  <div class="container dashboard-ix">
-    <div class="row">
+  <div class="container dashboard-ix h-100">
+    <div class="row h-100">
       <!-- <Login/> -->
       <InstagramDashboard/>
     </div>

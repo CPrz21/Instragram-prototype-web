@@ -1,13 +1,58 @@
 .dashboard-ix {
-  .dashboard-image-account {
-    width: 60%;
-  }
-  .main-widgets{
-    .main-widgets-header{
-      width: 100%;
+  .dashboard-container{
+    .dashboard-image-account {
+      width: 60%;
     }
-    .main-widgets-text{
-      width: 100%;
+    .main-widgets{
+      .main-widgets-header{
+        width: 100%;
+      }
+      .main-widgets-text{
+        width: 100%;
+      }
+    }
+    .dashboard-header{
+      height: 35%;
+      position: relative;
+      &::before{
+        content:'';
+        position: absolute;
+        height: 8px;
+        width: 100%;
+        top:0;
+        left: 0;
+        background-color: #0376e0;
+      }
+      &::after {
+        content:'';
+        position: absolute;
+        height: 8px;
+        width: 100%;
+        bottom: 0;
+        left: 0;
+        background-color: #49258f;
+      }
+    }
+    .dashboard-data{
+      height: 65%;
+      .dashboard-data-info,
+      .dashboard-data-calendar {
+        position: absolute;
+        top: -2rem;
+        border-radius: 5px;
+        border-color: transparent;
+        -webkit-box-shadow: 0px 7px 50px -7px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 0px 7px 50px -7px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 7px 50px -7px rgba(0, 0, 0, 0.25);
+      }
+      .dashboard-data-info{
+        width: 68%;
+        left:2rem;
+      }
+      .dashboard-data-calendar{
+        width: 25%;
+        right: 2rem;
+      }
     }
   }
 }

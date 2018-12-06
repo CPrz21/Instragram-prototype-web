@@ -1,6 +1,6 @@
 <template>
-  <div class="col-12">
-    <div class="col-12 d-flex py-5 bg-white border border-dark dashboard-header">
+  <div class="col-12 dashboard-container">
+    <div class="col-12 d-flex py-5 bg-white dashboard-header">
       <div class="col-3 text-center">
         <img class="dashboard-image-account rounded-circle img-fluid" alt="Elaniin logo" :src='ElaniinLogo'>
       </div>
@@ -14,16 +14,29 @@
         </div>
       </div>
     </div>
+    <div class="col-12 px-5 d-flex justify-content-between dashboard-data position-relative">
+      <div class="h-100 bg-light dashboard-data-info">
+        <DataWidgets/>
+        <DataWidgets/>
+        <DataWidgets/>
+        <DataWidgets/>
+      </div>
+      <div class="h-100 bg-light dashboard-data-calendar">
+
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import ElaniinLogo from '../assets/img/elaniin.png'
 import MainWidgets from '../components/dashboard/mainWidgets'
+import DataWidgets from '../components/dashboard/dataWidgets'
 export default {
   name: "InstagramDashboard",
   components:{
-    MainWidgets
+    MainWidgets,
+    DataWidgets
   },
   data(){
     return{
