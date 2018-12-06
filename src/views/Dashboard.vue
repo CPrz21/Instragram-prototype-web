@@ -2,7 +2,8 @@
   <div class="container dashboard-ix h-100">
     <div class="row h-100">
       <!-- <Login/> -->
-      <InstagramDashboard/>
+      <!-- <InstagramDashboard/> -->
+      <p class="bg-blue">Carlos</p>
     </div>
   </div>
 </template>
