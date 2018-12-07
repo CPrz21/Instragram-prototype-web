@@ -55,7 +55,7 @@ export default {
           console.log(response);
       });
     },
-    getToken(){
+    getToken: function (response) {
       if (response.status === 'connected') {
         FB.api('/me', { fields: 'name,email' }, function(profile) {
           FB.getLoginStatus(function(res) {
