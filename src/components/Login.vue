@@ -58,8 +58,8 @@ export default {
     getToken(){
       if (response.status === 'connected') {
         FB.api('/me', { fields: 'name,email' }, function(profile) {
-          FB.getLoginStatus(function(response) {
-              console.log(response);
+          FB.getLoginStatus(function(res) {
+              console.log(res);
           });
         });
       } else if (response.status === 'not_authorized') {
