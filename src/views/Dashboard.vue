@@ -1,10 +1,6 @@
 <template>
-  <div class="container dashboard-ix h-100">
-    <div class="row h-100">
-      <!-- <Login/> -->
-      <!-- <InstagramDashboard/> -->
-      <p class="bg-blue">Carlos</p>
-    </div>
+  <div class="container mx-auto">
+    <InstagramDashboard/>
   </div>
 </template>
 
@@ -13,6 +9,7 @@
 // import FacebookLogin from '../components/FacebookLogin'
 // import Login from '../components/Login'
 import InstagramDashboard from '../components/InstagramDashboard'
+import ElaniinLogo from '../assets/img/elaniin.png'
 
 export default {
   name: "Dashboard",
@@ -22,6 +19,7 @@ export default {
   },
   data(){
     return{
+      ElaniinLogo
     }
   },
   methods: {

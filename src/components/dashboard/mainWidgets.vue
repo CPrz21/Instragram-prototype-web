@@ -1,8 +1,10 @@
 <template>
-  <div class="col-3 main-widgets d-flex align-items-center py-4 border border-dark text-center">
-    <div class="w-100">
-      <h2 class="main-widgets-header m-0">{{title}}</h2>
-      <p class="main-widgets-text m-0">{{subtitle}}</p>
+  <div class="overflow-hidden shadow w-1/3 inline-block main-cards">
+    <div class="px-6 py-8 text-center">
+      <div class="font-bold text-4xl mb-2">{{title}}</div>
+      <p class="font-bold text-2xl">
+        {{subtitle}}
+      </p>
     </div>
   </div>
 </template>

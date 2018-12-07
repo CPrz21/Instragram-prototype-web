@@ -1,28 +1,14 @@
 <template>
-  <div class="col-12 dashboard-container">
-    <div class="col-12 d-flex py-5 bg-white dashboard-header">
-      <div class="col-3 col-3 d-flex justify-content-center align-items-center">
-        <img class="dashboard-image-account rounded-circle img-fluid" alt="Elaniin logo" :src='ElaniinLogo'>
-      </div>
-      <div class="col-9 d-flex flex-wrap align-items-center">
-        <div class="col-12 row">
-          <h1 class="col-12">Elaniin</h1>
-          <MainWidgets title="10,000" subtitle="Followers"/>
-          <MainWidgets title="10,000" subtitle="Followers"/>
-          <MainWidgets title="10,000" subtitle="Followers"/>
-          <MainWidgets title="10,000" subtitle="Followers"/>
-        </div>
-      </div>
+  <div class="container mx-auto flex">
+    <div class="w-1/4 flex items-center justify-center">
+      <img class="rounded-full h-48" alt="Elaniin logo" :src='ElaniinLogo'>
     </div>
-    <div class="col-12 px-5 d-flex justify-content-between dashboard-data position-relative">
-      <div class="h-100 bg-light dashboard-data-info">
-        <DataWidgets/>
-        <DataWidgets/>
-        <DataWidgets/>
-        <DataWidgets/>
-      </div>
-      <div class="h-100 bg-light dashboard-data-calendar">
-
+    <div class="w-3/4 flex items-center flex-wrap">
+      <div class="w-full">
+        <h1 class="w-full font-bold text-5xl">Elaniin</h1>
+        <MainWidgets title="100,000" subtitle="FOLLOWERS"/>
+        <MainWidgets title="1,000" subtitle="FOLLOWING"/>
+        <MainWidgets title="1,000" subtitle="MEDIA"/>
       </div>
     </div>
   </div>
