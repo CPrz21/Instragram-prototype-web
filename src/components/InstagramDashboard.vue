@@ -3,7 +3,7 @@
     <div class="w-full mx-auto flex items-start pt-10 px-12 bg-ix-purple dashboard-header">
       <div class="w-full flex">
         <div class="w-1/4 flex items-center justify-center">
-          <img class="rounded-full h-48" alt="Elaniin logo" :src='ElaniinLogo'>
+          <img class="rounded-full h-48" alt="Elaniin logo" :src='ProfilePicture'>
         </div>
         <div class="w-3/4 flex items-center flex-wrap">
           <div class="w-full">
@@ -22,14 +22,14 @@
     </div>
     <div class="w-full px-8 dashboard-body flex justify-between bg-white relative">
       <div class="w-3/4 h-full bg-white rounded-lg absolute dashboard-data shadow-md">
-        <div class="overflow-hidden shadow w-1/4 inline-block history-cards">
+        <div class="overflow-hidden shadow w-1/4 inline-block history-cards" v-for="Storie in Stories">
           <div class="px-6 py-8 history-cards-data">
             <p>Impresions</p>
             <span>1,000</span>
             <p>Reach</p>
             <span>500</span>
           </div>
-          <img class="history-cards-image" :src="Background">
+          <img class="history-cards-image" :src="Storie.media_url">
         </div>
       </div>
       <div class="w-1/5 h-full bg-white rounded-lg absolute dashboard-filter shadow-md">
@@ -60,7 +60,9 @@ export default {
       Accounts:'',
       Followers:'-',
       Following:'-',
-      Media:'-'
+      Media:'-',
+      ProfilePicture:'',
+      Stories:''
     }
   },
   mounted(){
@@ -84,6 +86,7 @@ export default {
       });
     },
     getAccountInfo(selectedIndex){
+      this.getStories(selectedIndex);
       var here = this;
       var accountID= this.Accounts[selectedIndex].id;
       var URL=`https://inxights-in-prototype-api.herokuapp.com/instagram/${accountID}`
@@ -99,6 +102,24 @@ export default {
         here.Followers= numeral(res.followers_count).format('0,0');
         here.Following= numeral(res.follows_count).format('0,0');
         here.Media = numeral(res.media_count).format('0,0');
+        here.ProfilePicture=res.profile_picture_url;
+      });
+    },
+    getStories(selectedIndex){
+      var here = this;
+      var accountID= this.Accounts[selectedIndex].id;
+      var URL=`https://inxights-in-prototype-api.herokuapp.com/instagram/${accountID}/stories`
+      fetch(URL, {
+        headers: {
+          'Authorization': this.token
+        }
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(res) {
+        console.log(res);
+        here.Stories=res;
       });
     }
   },
