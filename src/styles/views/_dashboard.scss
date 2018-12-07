@@ -57,12 +57,15 @@
 //   }
 // }
 
-.main-cards{
-  &:nth-child(even){
-    background-color: #0376e0;
-    color: white;
-  }
-  &:nth-child(odd) {
-    background-color: white;
+.dashboard-header{
+  height: 45%;
+  .main-cards{
+    &:nth-child(even){
+      background-color: #0376e0;
+      color: white;
+    }
+    &:nth-child(odd) {
+      background-color: white;
+    }
   }
 }
