@@ -13,9 +13,6 @@
 // @ is an alias to /src
 
 export default {
-  name: "MainWidgets",
-  props:[
-    "title","subtitle"
-  ]
+  name: "HistoryCards",
 };
 </script>

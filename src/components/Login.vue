@@ -1,8 +1,14 @@
 <template>
   <div>
-    <button type="button" class="btn btn-primary btn-block" @click="openFbLoginDialog">Facebook Login</button>
-    <button type="button" class="btn btn-primary btn-block" @click="logoutFb">Facebook Logout</button>
-    <button type="button" class="btn btn-primary btn-block" @click="loginStatus">Facebook Login Status</button>
+    <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" @click="openFbLoginDialog">
+      LOGIN
+    </button>
+    <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" @click="logoutFb">
+      LOGOUT
+    </button>
+    <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" @click="loginStatus">
+      STATUS
+    </button>
   </div>
 </template>
 

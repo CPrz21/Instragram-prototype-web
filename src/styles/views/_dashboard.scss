@@ -74,6 +74,10 @@
   .dashboard-data{
     top:-1rem;
     left: 1rem;
+    .history-cards{
+      overflow: hidden;
+      position: relative;
+    }
   }
   .dashboard-filter {
     top: -1rem;
