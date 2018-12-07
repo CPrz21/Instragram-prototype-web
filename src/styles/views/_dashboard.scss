@@ -58,7 +58,7 @@
 // }
 
 .dashboard-header{
-  height: 45%;
+  height:$dashboardHeaderHeight;
   .main-cards{
     &:nth-child(even){
       background-color: #0376e0;
@@ -67,5 +67,16 @@
     &:nth-child(odd) {
       background-color: white;
     }
+  }
+}
+.dashboard-body{
+  height: $dashboardBodyHeight;
+  .dashboard-data{
+    top:-1rem;
+    left: 1rem;
+  }
+  .dashboard-filter {
+    top: -1rem;
+    right: 1rem;
   }
 }
