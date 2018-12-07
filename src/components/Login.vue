@@ -59,7 +59,8 @@ export default {
       if (response.status === 'connected') {
         FB.api('/me', { fields: 'name,email' }, function(profile) {
           FB.getLoginStatus(function(res) {
-              console.log(res);
+              console.log(res.authResponse.accessToken);
+              console.log(res.authResponse.userID);
           });
         });
       } else if (response.status === 'not_authorized') {
