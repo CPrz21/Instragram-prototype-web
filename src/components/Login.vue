@@ -1,5 +1,5 @@
 <template>
-  <button class="bg-ix-purple hover:bg-blue-dark text-white font-bold py-4 px-4 rounded w-64 text-xl" @click="getToken">
+  <button class="bg-ix-purple hover:bg-blue-dark text-white font-bold py-4 px-4 rounded w-64 text-xl" @click="openFbLoginDialog">
     LOGIN
   </button>
 </template>
