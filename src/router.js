@@ -14,6 +14,12 @@ export default new Router({
       component: Login
     },
     {
+      path: "/dashboard/:token",
+      name: "dashboard",
+      component: Dashboard,
+      props: true
+    },
+    {
       path: "/about",
       name: "about",
       // route level code-splitting

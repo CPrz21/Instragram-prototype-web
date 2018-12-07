@@ -7,10 +7,15 @@
         </div>
         <div class="w-3/4 flex items-center flex-wrap">
           <div class="w-full">
-            <h1 class="w-full font-bold text-5xl text-white">Elaniin</h1>
-            <MainCards title="100,000" subtitle="FOLLOWERS"/>
-            <MainCards title="1,000" subtitle="FOLLOWING"/>
-            <MainCards title="1,000" subtitle="MEDIA"/>
+            <!-- <h1 class="w-full font-bold text-5xl text-white">{{token}}</h1> -->
+            <select @change="getAccountInfo($event.target.selectedIndex)" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey mb-4" id="grid-state">
+              <option v-for="item in Accounts" v-bind:value="item">
+              {{ item.name }}
+              </option>
+            </select>
+            <MainCards :title="Followers" subtitle="FOLLOWERS"/>
+            <MainCards :title="Following" subtitle="FOLLOWING"/>
+            <MainCards :title="Media" subtitle="MEDIA"/>
           </div>
         </div>
       </div>
@@ -40,17 +45,66 @@ import Background from '../assets/img/superman.png'
 import MainCards from '../components/dashboard/mainCards'
 import HistoryCards from '../components/dashboard/historyCards'
 import Calendar from '../components/dashboard/calendar'
+import Router from '../router';
+var numeral = require('numeral');
 export default {
   name: "InstagramDashboard",
   components:{
     MainCards,
     HistoryCards,
-    'v-calendar':Calendar
   },
   data(){
     return{
       ElaniinLogo,
-      Background
+      Background,
+      Accounts:'',
+      Followers:'-',
+      Following:'-',
+      Media:'-'
+    }
+  },
+  mounted(){
+    this.getUserToken(this.token);
+  },
+  methods:{
+    getUserToken(token){
+      var here = this;
+      var URL='https://inxights-in-prototype-api.herokuapp.com/instagram/accounts'
+      fetch(URL, {
+        headers: {
+          'Authorization': token
+        }
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(myJson) {
+        here.Accounts=myJson;
+        here.getAccountInfo(0);
+      });
+    },
+    getAccountInfo(selectedIndex){
+      var here = this;
+      var accountID= this.Accounts[selectedIndex].id;
+      var URL=`https://inxights-in-prototype-api.herokuapp.com/instagram/${accountID}`
+      fetch(URL, {
+        headers: {
+          'Authorization': this.token
+        }
+      })
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(res) {
+        here.Followers= numeral(res.followers_count).format('0,0');
+        here.Following= numeral(res.follows_count).format('0,0');
+        here.Media = numeral(res.media_count).format('0,0');
+      });
+    }
+  },
+  computed:{
+    token: function(){
+      return this.$route.params.token;
     }
   }
 };
