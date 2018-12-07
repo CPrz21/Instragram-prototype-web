@@ -1,15 +1,7 @@
 <template>
-  <div>
-    <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" @click="openFbLoginDialog">
-      LOGIN
-    </button>
-    <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" @click="logoutFb">
-      LOGOUT
-    </button>
-    <button class="bg-blue hover:bg-blue-dark text-white font-bold py-2 px-4 rounded" @click="loginStatus">
-      STATUS
-    </button>
-  </div>
+  <button class="bg-ix-purple hover:bg-blue-dark text-white font-bold py-4 px-4 rounded w-64 text-xl" @click="openFbLoginDialog">
+    LOGIN
+  </button>
 </template>
 
 <script>
@@ -37,7 +29,7 @@ export default {
   },
   methods: {
     openFbLoginDialog () {
-      FB.login(this.checkLoginState, { scope: 'email' })
+      FB.login(this.getToken, { scope: 'email' })
     },
     checkLoginState: function (response) {
       if (response.status === 'connected') {
@@ -62,6 +54,20 @@ export default {
       FB.getLoginStatus(function(response) {
           console.log(response);
       });
+    },
+    getToken(){
+      if (response.status === 'connected') {
+        FB.api('/me', { fields: 'name,email' }, function(profile) {
+          FB.getLoginStatus(function(response) {
+              console.log(response);
+          });
+        });
+      } else if (response.status === 'not_authorized') {
+        // the user is logged in to Facebook,
+        // but has not authenticated your app
+      } else {
+        // the user isn't logged in to Facebook.
+      }
     }
   }
 };
