@@ -52,7 +52,7 @@
           });
       },
       openFbLoginDialog() {
-        FB.login(this.getToken, { scope: 'email' });
+        FB.login(this.getToken, { scope: 'email,manage_pages,instagram_basic' });
       },
       checkLoginState: function (response) {
         if (response.status === 'connected') {
