@@ -1,8 +1,8 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import "./styles/css/tailwind.css";
+import Vue from 'vue';
+import App from './App.vue';
+import router from './router';
+import store from './store';
+import './styles/css/tailwind.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faEye,
@@ -21,7 +21,7 @@ Vue.config.productionTip = false;
 new Vue({
   router,
   store,
-  render: function(h) {
+  render(h) {
     return h(App);
-  }
-}).$mount("#app");
+  },
+}).$mount('#app');
