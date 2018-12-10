@@ -9,10 +9,12 @@ import {
   faHandsHelping,
   faCaretLeft,
   faCaretRight,
-  faSignOutAlt} from '@fortawesome/free-solid-svg-icons';
+  faSignOutAlt,
+  faChevronLeft,
+  faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
-library.add(faEye, faHandsHelping, faCaretLeft, faCaretRight, faSignOutAlt)
+library.add(faEye, faHandsHelping, faCaretLeft, faCaretRight, faSignOutAlt, faChevronLeft, faChevronRight)
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 

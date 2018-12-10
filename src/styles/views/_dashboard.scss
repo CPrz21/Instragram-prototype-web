@@ -75,29 +75,79 @@
     top:-1rem;
     left: 1rem;
     overflow: hidden;
-    .storie-cards{
-      height: 42%;
-      .storie-image-container{
-        height: 50%;
-        position: relative;
-        overflow: hidden;
-        background-size: 120%;
-        background-position: 50%;
-      }
-      .storie-insights{
-        height: 50%;
-        .storie-insights-data{
-          line-height: 0;
-          height: 20%;
-          .storie-insights-icon{
-            color: white;
-            background:#383838;
-            width: 10%;
+    .stories-slider-container{
+      height: 50%;
+      #storiesSlider{
+        height: 100%;
+        .slick-list{
+          height: 100%;
+          .slick-track{
             height: 100%;
+            .slick-slide,{
+              height: 100%;
+              div{
+                height: 100%;
+                .storie-image-container{
+                  position: relative;
+                  overflow: hidden;
+                  background-size: 120%;
+                  background-position: 50%;
+                  .storie-insights{
+                    height: 45%;
+                    width: 70%;
+                    right: 0;
+                    left: 0;
+                    bottom: 0;
+                    margin: 0 auto;
+                    background: white;
+                    .storie-insights-data{
+                      line-height: 0;
+                      height: 20%;
+                      .storie-insights-icon{
+                        color: white;
+                        background:#383838;
+                        width: 14%;
+                        height: 100%;
+                      }
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
+      .stories-slider-button{
+        &:hover{
+          background: rgba(0, 0, 0, 0.25);
+          cursor: pointer;
+        }
+      }
     }
+
+    // .storie-cards{
+    //   height: 42%;
+    //   .storie-image-container{
+    //     height: 50%;
+    //     position: relative;
+    //     overflow: hidden;
+    //     background-size: 120%;
+    //     background-position: 50%;
+    //   }
+      // .storie-insights{
+      //   height: 50%;
+      //   .storie-insights-data{
+      //     line-height: 0;
+      //     height: 20%;
+      //     .storie-insights-icon{
+      //       color: white;
+      //       background:#383838;
+      //       width: 10%;
+      //       height: 100%;
+      //     }
+      //   }
+      // }
+    // }
   }
   .dashboard-filter {
     top: -1rem;

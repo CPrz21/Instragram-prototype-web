@@ -23,23 +23,24 @@
     <div class="w-full px-8 dashboard-body flex justify-between bg-white relative">
       <div class="w-3/4 h-full bg-white rounded-lg absolute dashboard-data shadow-md">
         <!-- <div class="overflow-hidden shadow w-1/4 inline-block history-cards" v-for="Storie in Stories"> -->
-        <slick
-          ref="slick"
-          :options="slickOptions">
-          <StorieCards
-          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
-          />
-          <StorieCards
-          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
-          />
-          <StorieCards
-          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
-          />
-          <StorieCards
-          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
-          />
-        </slick>
-
+        <div class="w-full stories-slider-container relative">
+          <slick
+            id="storiesSlider"
+            ref="slick"
+            :options="slickOptions">
+            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46220539_207801003429622_4094310969348659787_n.jpg?_nc_cat=111&_nc_ht=scontent.xx&oh=806f1b0606078e9fe28bbc8bd5c89d03&oe=5CAD6514"/>
+            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"/>
+            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/45595563_2383915625171262_5780344435175447446_n.jpg?_nc_cat=103&_nc_ht=scontent.xx&oh=5a0e43482a2751929c0c525e132aaf2a&oe=5CA9E63E"/>
+            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/45920059_443986316133577_119502704122697657_n.jpg?_nc_cat=102&_nc_ht=scontent.xx&oh=245474b91091d75a5199a7ee68d24115&oe=5C979136"/>
+            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"/>
+          </slick>
+          <div @click="next" class="absolute pin-b pin-r h-full flex items-center justify-center stories-slider-button" style="width:25px">
+            <font-awesome-icon icon="chevron-right"/>
+          </div>
+          <div @click="prev" class="absolute pin-b pin-l h-full flex items-center justify-center stories-slider-button" style="width:25px">
+            <font-awesome-icon icon="chevron-left"/>
+          </div>
+        </div>
         <!-- <StorieCards
         storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46220539_207801003429622_4094310969348659787_n.jpg?_nc_cat=111&_nc_ht=scontent.xx&oh=806f1b0606078e9fe28bbc8bd5c89d03&oe=5CAD6514"
         />
@@ -94,6 +95,7 @@ export default {
       slickOptions: {
                         //options can be used from the plugin documentation
                         slidesToShow: 4,
+                        arrows: false,
                     }
     }
   },
