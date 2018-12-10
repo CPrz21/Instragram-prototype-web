@@ -28,16 +28,24 @@
             id="storiesSlider"
             ref="slick"
             :options="slickOptions">
-            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46220539_207801003429622_4094310969348659787_n.jpg?_nc_cat=111&_nc_ht=scontent.xx&oh=806f1b0606078e9fe28bbc8bd5c89d03&oe=5CAD6514"/>
-            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"/>
+            <div :style="{ backgroundImage: `url('${Storie.media_url}')` }" class="w-full h-16 storie-image-container relative" v-for="Storie in Stories" v-if="Storie.media_type === 'IMAGE'">
+              <div class="storie-insights absolute">
+                <StorieIcons iconName="eye" :insightNumber="Storie.insights.impressions" titleLabel="Impressions"/>
+                <StorieIcons iconName="hands-helping" :insightNumber="Storie.insights.reach" titleLabel="Reach"/>
+                <StorieIcons iconName="caret-right" :insightNumber="Storie.insights.taps_forward" titleLabel="Taps Forward"/>
+                <StorieIcons iconName="caret-left" :insightNumber="Storie.insights.taps_back" titleLabel="Taps Backward"/>
+                <StorieIcons iconName="sign-out-alt" :insightNumber="Storie.insights.exits" titleLabel="Exits"/>
+              </div>
+            </div>
+            <!-- <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"/>
             <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/45595563_2383915625171262_5780344435175447446_n.jpg?_nc_cat=103&_nc_ht=scontent.xx&oh=5a0e43482a2751929c0c525e132aaf2a&oe=5CA9E63E"/>
             <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/45920059_443986316133577_119502704122697657_n.jpg?_nc_cat=102&_nc_ht=scontent.xx&oh=245474b91091d75a5199a7ee68d24115&oe=5C979136"/>
-            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"/>
+            <storie-cards storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"/> -->
           </slick>
-          <div @click="next" class="absolute pin-b pin-r h-full flex items-center justify-center stories-slider-button" style="width:25px">
+          <div @click="next" class="absolute pin-b pin-r h-full flex items-center justify-center stories-slider-button" style="width:25px" v-show="Stories.length > 4">
             <font-awesome-icon icon="chevron-right"/>
           </div>
-          <div @click="prev" class="absolute pin-b pin-l h-full flex items-center justify-center stories-slider-button" style="width:25px">
+          <div @click="prev" class="absolute pin-b pin-l h-full flex items-center justify-center stories-slider-button" style="width:25px" v-show="Stories.length > 4">
             <font-awesome-icon icon="chevron-left"/>
           </div>
         </div>
@@ -74,12 +82,13 @@ import Calendar from '../components/dashboard/calendar'
 import '../../node_modules/slick-carousel/slick/slick.css'
 import Slick from 'vue-slick';
 import Router from '../router';
+import StorieIcons from '../components/dashboard/storieIcons.vue'
 var numeral = require('numeral');
 export default {
   name: "InstagramDashboard",
   components:{
     MainCards,
-    StorieCards,
+    StorieIcons,
     Slick
   },
   data(){
@@ -101,6 +110,18 @@ export default {
   },
   mounted(){
     this.getUserToken(this.token);
+  },
+  beforeUpdate() {
+      if (this.$refs.slick) {
+          this.$refs.slick.destroy();
+      }
+  },
+  updated() {
+      this.$nextTick(function () {
+          if (this.$refs.slick) {
+              this.$refs.slick.create(this.slickOptions);
+          }
+      });
   },
   methods:{
     getUserToken(token){
