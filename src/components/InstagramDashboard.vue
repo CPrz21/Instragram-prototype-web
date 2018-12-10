@@ -38,9 +38,6 @@
           <StorieCards
           storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
           />
-          <StorieCards
-          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
-          />
         </slick>
 
         <!-- <StorieCards
