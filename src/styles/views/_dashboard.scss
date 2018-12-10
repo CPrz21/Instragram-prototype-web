@@ -74,9 +74,29 @@
   .dashboard-data{
     top:-1rem;
     left: 1rem;
-    .history-cards{
-      overflow: hidden;
-      position: relative;
+    overflow: hidden;
+    .storie-cards{
+      height: 42%;
+      .storie-image-container{
+        height: 50%;
+        position: relative;
+        overflow: hidden;
+        background-size: 120%;
+        background-position: 50%;
+      }
+      .storie-insights{
+        height: 50%;
+        .storie-insights-data{
+          line-height: 0;
+          height: 20%;
+          .storie-insights-icon{
+            color: white;
+            background:#383838;
+            width: 10%;
+            height: 100%;
+          }
+        }
+      }
     }
   }
   .dashboard-filter {

@@ -22,15 +22,43 @@
     </div>
     <div class="w-full px-8 dashboard-body flex justify-between bg-white relative">
       <div class="w-3/4 h-full bg-white rounded-lg absolute dashboard-data shadow-md">
-        <div class="overflow-hidden shadow w-1/4 inline-block history-cards" v-for="Storie in Stories">
-          <div class="px-6 py-8 history-cards-data">
-            <p>Impresions</p>
-            <span>1,000</span>
-            <p>Reach</p>
-            <span>500</span>
-          </div>
-          <img class="history-cards-image" :src="Storie.media_url">
-        </div>
+        <!-- <div class="overflow-hidden shadow w-1/4 inline-block history-cards" v-for="Storie in Stories"> -->
+        <slick
+          ref="slick"
+          :options="slickOptions">
+          <StorieCards
+          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+          />
+          <StorieCards
+          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+          />
+          <StorieCards
+          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+          />
+          <StorieCards
+          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+          />
+          <StorieCards
+          storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+          />
+        </slick>
+
+        <!-- <StorieCards
+        storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46220539_207801003429622_4094310969348659787_n.jpg?_nc_cat=111&_nc_ht=scontent.xx&oh=806f1b0606078e9fe28bbc8bd5c89d03&oe=5CAD6514"
+        />
+        <StorieCards
+        storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+        />
+        <StorieCards
+        storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46220539_207801003429622_4094310969348659787_n.jpg?_nc_cat=111&_nc_ht=scontent.xx&oh=806f1b0606078e9fe28bbc8bd5c89d03&oe=5CAD6514"
+        />
+        <StorieCards
+        storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+        />
+        <StorieCards
+        storieImage="https://scontent.xx.fbcdn.net/v/t51.12442-15/46341978_2006678309385444_3342648305789699792_n.jpg?_nc_cat=109&_nc_ht=scontent.xx&oh=463db371180148d5f4e456dd33d54d4e&oe=5CAAE9F7"
+        /> -->
+
       </div>
       <div class="w-1/5 h-full bg-white rounded-lg absolute dashboard-filter shadow-md">
         <Calendar/>
@@ -43,15 +71,18 @@
 import ElaniinLogo from '../assets/img/elaniin.png'
 import Background from '../assets/img/superman.png'
 import MainCards from '../components/dashboard/mainCards'
-import HistoryCards from '../components/dashboard/historyCards'
+import StorieCards from '../components/dashboard/storieCards'
 import Calendar from '../components/dashboard/calendar'
+import '../../node_modules/slick-carousel/slick/slick.css'
+import Slick from 'vue-slick';
 import Router from '../router';
 var numeral = require('numeral');
 export default {
   name: "InstagramDashboard",
   components:{
     MainCards,
-    HistoryCards,
+    StorieCards,
+    Slick
   },
   data(){
     return{
@@ -62,7 +93,11 @@ export default {
       Following:'-',
       Media:'-',
       ProfilePicture:'',
-      Stories:''
+      Stories:'',
+      slickOptions: {
+                        //options can be used from the plugin documentation
+                        slidesToShow: 4,
+                    }
     }
   },
   mounted(){
@@ -121,7 +156,19 @@ export default {
         console.log(res);
         here.Stories=res;
       });
-    }
+    },
+  next() {
+            this.$refs.slick.next();
+        },
+  prev() {
+      this.$refs.slick.prev();
+  },
+  reInit() {
+      // Helpful if you have to deal with v-for to update dynamic lists
+      this.$nextTick(() => {
+          this.$refs.slick.reSlick();
+      });
+  },
   },
   computed:{
     token: function(){
