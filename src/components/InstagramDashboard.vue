@@ -30,6 +30,7 @@
                                 ref="slick"
                                 :options="slickOptions">
                             <div class="w-full h-16 storie-image-container relative" v-for="Storie in Stories">
+                                <p class="storie-caption" v-if="Storie.caption">{{Storie.caption}}</p>
                                 <img v-if="Storie.media_type === 'IMAGE'" class="storie-image" :src="Storie.media_url"
                                      alt="storie">
                                 <video id="video" autoplay muted loop v-if="Storie.media_type === 'VIDEO'"
@@ -85,7 +86,7 @@
   import Slick from 'vue-slick';
   import Posts from '../components/dashboard/Posts';
   import StorieIcons from '../components/dashboard/storieIcons.vue';
-
+  import Calendar from '../components/dashboard/calendar.vue'
   var numeral = require('numeral');
   export default {
     name: 'InstagramDashboard',
@@ -94,6 +95,7 @@
       StorieIcons,
       Slick,
       Posts,
+      Calendar
     },
     data() {
       return {

@@ -13,11 +13,12 @@ import {
   faChevronLeft,
   faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import VCalendar from 'v-calendar';
+import VDatePicker from 'v-calendar';
 import 'v-calendar/lib/v-calendar.min.css';
 
-Vue.use(VCalendar, {
+Vue.use(VDatePicker, {
   firstDayOfWeek: 2,
+  popoverExpanded:true
 });
 
 library.add(faEye, faHandsHelping, faCaretLeft, faCaretRight, faSignOutAlt, faChevronLeft, faChevronRight);
