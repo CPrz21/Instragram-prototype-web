@@ -14,9 +14,9 @@
                                 {{ item.name }}
                             </option>
                         </select>
-                        <MainCards :title="Followers" subtitle="FOLLOWERS"/>
-                        <MainCards :title="Following" subtitle="FOLLOWING"/>
-                        <MainCards :title="Media" subtitle="MEDIA"/>
+                        <MainCards :title="Followers" subtitle="FOLLOWERS" />
+                        <MainCards :title="Following" subtitle="FOLLOWING" />
+                        <MainCards :title="Media" subtitle="MEDIA" />
                     </div>
                 </div>
             </div>
@@ -61,34 +61,16 @@
                             <font-awesome-icon icon="chevron-left"/>
                         </div>
                     </div>
-                    <div id="media-posts" class="w-full flex">
-                        <div class="media w-1/3 bg-black relative">
-                            <div class="picture">
-                                <img src="https://images.pexels.com/photos/1668885/pexels-photo-1668885.jpeg?cs=srgb&dl=pexels-1668885.jpg&fm=jpg"
-                                     alt="woman">
-                            </div>
-                            <div class="absolute pin-b bg-white media-content">
-                                <div class="media-text p-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, amet architecto, aut
-                                    corporis illum ipsum iure minima minus perferendis possimus rem reprehenderit ut
-                                    voluptatibus! Aspernatur deserunt laborum vero voluptatum? Accusamus.
-                                </div>
-                                <div class="media-insights flex">
-                                    <div class="w-1/2 py-2 bg-grey px-4">Likes</div>
-                                    <div class="w-1/2 py-2 bg-grey-light px-4">Comments</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <posts :token="token" :accountId="accountId"/>
                 </div>
             </div>
             <div class="w-1/4 px-3">
                 <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
-                  <v-date-picker
-                    mode='range'
-                    v-model='selectedDate'
-                    show-caps>
-                  </v-date-picker>
+                    <v-date-picker
+                            mode='range'
+                            v-model='selectedDate'
+                            show-caps>
+                    </v-date-picker>
                 </div>
             </div>
         </div>
@@ -101,7 +83,7 @@
   import MainCards from '../components/dashboard/mainCards';
   import '../../node_modules/slick-carousel/slick/slick.css';
   import Slick from 'vue-slick';
-  import Router from '../router';
+  import Posts from '../components/dashboard/Posts';
   import StorieIcons from '../components/dashboard/storieIcons.vue';
 
   var numeral = require('numeral');
@@ -111,12 +93,13 @@
       MainCards,
       StorieIcons,
       Slick,
-
+      Posts,
     },
     data() {
       return {
         ElaniinLogo,
         Background,
+        accountId: null,
         Accounts: '',
         Followers: '-',
         Following: '-',
@@ -133,15 +116,14 @@
             key: 'today',
             highlight: {
               backgroundColor: '#ff8080',
-              // Other properties are available too, like `height` & `borderRadius`
             },
-            dates: new Date(2018, 11, 1)
-          }
+            dates: new Date(2018, 11, 1),
+          },
         ],
         selectedDate: {
           start: new Date(2018, 11, 9),
-          end: new Date(2018, 11, 18)
-        }
+          end: new Date(2018, 11, 18),
+        },
       };
     },
     mounted() {
@@ -178,6 +160,7 @@
       },
       getAccountInfo(selectedIndex) {
         this.getStories(selectedIndex);
+        this.accountId = this.Accounts[selectedIndex].id;
         var here = this;
         var accountID = this.Accounts[selectedIndex].id;
         var URL = `https://inxights-in-prototype-api.herokuapp.com/instagram/${accountID}`;
@@ -245,9 +228,9 @@
 
     .media {
         .media-content {
-            left: 5%;
-            right: 5%;
-            width: 90%;
+            left: 10%;
+            right: 10%;
+            width: 80%;
         }
     }
 </style>
