@@ -102,7 +102,7 @@
         })
         .then(function(myJson) {
           if(myJson.length === 0){
-            this.showNotification=true;
+            here.showNotification=true;
           }else{
             Router.push({ name: 'dashboard', params: { token: token } });
           }
