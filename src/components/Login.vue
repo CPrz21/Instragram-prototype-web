@@ -32,8 +32,7 @@
       }(document, 'script', 'facebook-jssdk'));
     },
     methods: {
-      getUserInfo(accessToken) {
-        //var accessToken = 'EAABxMDfH75wBAA5HqvR5IRUYCEzr9hVs6ZBx1eOBG6IOuS1ZBnRj0hdqZCr0TUAafuMoZAj35ZAb6MtzUmAF4viAFAbdIJUAwwlra5ZAPVgkFzQgKWqaJPV2JF0RmzQBf4cJWLvsGM12fUnNN2QS8plZAWsAQxPAfMZD';
+      getUserInfo() {
         var url = 'https://inxights-in-prototype-api.herokuapp.com/authenticate';
         var data = { accessToken: accessToken };
 
