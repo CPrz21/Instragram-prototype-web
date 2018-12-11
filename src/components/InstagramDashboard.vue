@@ -7,7 +7,6 @@
         </div>
         <div class="w-3/4 flex items-center flex-wrap">
           <div class="w-full">
-            <!-- <h1 class="w-full font-bold text-5xl text-white">{{token}}</h1> -->
             <select @change="getAccountInfo($event.target.selectedIndex)" class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey mb-4" id="grid-state">
               <option v-for="item in Accounts" v-bind:value="item">
               {{ item.name }}
@@ -28,7 +27,11 @@
             id="storiesSlider"
             ref="slick"
             :options="slickOptions">
-            <div :style="{ backgroundImage: `url('${Storie.media_url}')` }" class="w-full h-16 storie-image-container relative" v-for="Storie in Stories" v-if="Storie.media_type === 'IMAGE'">
+            <div class="w-full h-16 storie-image-container relative" v-for="Storie in Stories">
+              <img v-if="Storie.media_type === 'IMAGE'" class="storie-image" :src="Storie.media_url" alt="storie">
+              <video id="video" autoplay loop v-if="Storie.media_type === 'VIDEO'" class="storie-image">
+                <source :src="Storie.media_url" type="video/mp4"></source>
+              </video>
               <div class="storie-insights absolute">
                 <StorieIcons iconName="eye" :insightNumber="Storie.insights.impressions" titleLabel="Impressions"/>
                 <StorieIcons iconName="hands-helping" :insightNumber="Storie.insights.reach" titleLabel="Reach"/>

@@ -35,6 +35,11 @@
                   overflow: hidden;
                   background-size: 120%;
                   background-position: 50%;
+                  .storie-image{
+                    object-fit: cover;
+                    width: 100%;
+                    height: 100%;
+                  }
                   .storie-insights{
                     height: 45%;
                     width: 70%;
