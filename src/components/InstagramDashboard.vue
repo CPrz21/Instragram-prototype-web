@@ -64,35 +64,19 @@
                     <div id="media-posts" class="w-full flex">
                         <div class="media w-1/3 bg-black relative">
                             <div class="picture">
-                                <img src="https://images.pexels.com/photos/1649735/pexels-photo-1649735.jpeg?cs=srgb&dl=adult-beautiful-black-1649735.jpg&fm=jpg"
-                                     alt="woman">
-                            </div>
-                            <div class="absolute pin-b bg-white p-4 media-content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, amet architecto, aut
-                                corporis illum ipsum iure minima minus perferendis possimus rem reprehenderit ut
-                                voluptatibus! Aspernatur deserunt laborum vero voluptatum? Accusamus.
-                            </div>
-                        </div>
-                        <div class="media w-1/3 bg-black relative">
-                            <div class="picture">
-                                <img src="https://images.pexels.com/photos/1667761/pexels-photo-1667761.jpeg?cs=srgb&dl=adult-beautiful-blonde-1667761.jpg&fm=jpg"
-                                     alt="woman">
-                            </div>
-                            <div class="absolute pin-b bg-white p-4 media-content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, amet architecto, aut
-                                corporis illum ipsum iure minima minus perferendis possimus rem reprehenderit ut
-                                voluptatibus! Aspernatur deserunt laborum vero voluptatum? Accusamus.
-                            </div>
-                        </div>
-                        <div class="media w-1/3 bg-black relative">
-                            <div class="picture">
                                 <img src="https://images.pexels.com/photos/1668885/pexels-photo-1668885.jpeg?cs=srgb&dl=pexels-1668885.jpg&fm=jpg"
                                      alt="woman">
                             </div>
-                            <div class="absolute pin-b bg-white p-4 media-content">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, amet architecto, aut
-                                corporis illum ipsum iure minima minus perferendis possimus rem reprehenderit ut
-                                voluptatibus! Aspernatur deserunt laborum vero voluptatum? Accusamus.
+                            <div class="absolute pin-b bg-white media-content">
+                                <div class="media-text p-4">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, amet architecto, aut
+                                    corporis illum ipsum iure minima minus perferendis possimus rem reprehenderit ut
+                                    voluptatibus! Aspernatur deserunt laborum vero voluptatum? Accusamus.
+                                </div>
+                                <div class="media-insights flex">
+                                    <div class="w-1/2 py-2 bg-grey px-4">Likes</div>
+                                    <div class="w-1/2 py-2 bg-grey-light px-4">Comments</div>
+                                </div>
                             </div>
                         </div>
                     </div>
