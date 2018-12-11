@@ -84,20 +84,7 @@
             </div>
             <div class="w-1/4 px-3">
                 <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md" style="height:50%">
-                  <form class="text-center">
-                    <input
-                      name='myDate'
-                      type='hidden'
-                      :value='myDate' />
-                    <v-date-picker
-                      :mode='mode'
-                      v-model='myDate'
-                      is-inline
-                      show-caps
-                      tint-color='#0376e0'
-                      :select-attribute="selectAttribute">
-                    </v-date-picker>
-                  </form>
+                  <calendar/>
                 </div>
             </div>
         </div>
@@ -112,7 +99,7 @@
   import Slick from 'vue-slick';
   import Router from '../router';
   import StorieIcons from '../components/dashboard/storieIcons.vue';
-
+  import Calendar from '../components/dashboard/calendar.vue'
   var numeral = require('numeral');
   export default {
     name: 'InstagramDashboard',
@@ -120,7 +107,7 @@
       MainCards,
       StorieIcons,
       Slick,
-
+      Calendar
     },
     data() {
       return {
@@ -137,11 +124,6 @@
           slidesToShow: 4,
           arrows: false,
         },
-        myDate: {
-          start: new Date(),
-          end: new Date(2018, 11, 21)
-        },
-        mode:'range'
       };
     },
     mounted() {
@@ -230,25 +212,6 @@
       token: function () {
         return this.$route.params.token;
       },
-      selectAttribute() {
-          return {
-            highlight: {
-              backgroundColor: '#49258f',
-              animated: true,
-              // height: '2.9rem'
-            },
-            highlightCaps: {
-              // animated: false,
-              // height: '2.9rem',
-              borderWidth: '3px',
-              backgroundColor: '#fff',
-              color:'black',
-              borderColor: '#0376e0',
-              // borderStyle: 'solid',
-              opacity: 1
-            }
-          }
-        }
     },
   };
 </script>

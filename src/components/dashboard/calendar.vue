@@ -1,30 +1,53 @@
 <template>
-  <v-calendar :attributes='attrs'>
-  </v-calendar>
+   <form class="text-center">
+      <input
+        name='myDate'
+        type='hidden'
+        :value='selectedDate' />
+      <v-date-picker
+        :mode='mode'
+        v-model='selectedDate'
+        is-inline
+        show-caps
+        tint-color='#0376e0'
+        :select-attribute="selectAttribute">
+      </v-date-picker>
+    </form>
 </template>
 
 <script>
-import VCalendar from 'v-calendar'
-import 'v-calendar/lib/v-calendar.min.css';
 
 export default {
   name: "calendar",
-  components:{
-    'v-calendar':VCalendar
-  },
   data() {
     return {
-      attrs: [
-        {
-          key: 'today',
-          highlight: {
-            backgroundColor: '#ff8080',
-            // Other properties are available too, like `height` & `borderRadius`
-          },
-          dates: new Date(2018, 0, 1)
-        }
-      ],
+      selectedDate: {
+        start: new Date(),
+        end: new Date(2018, 11, 21)
+      },
+      mode:'range'
     };
+  },
+  computed: {
+    selectAttribute() {
+        return {
+          highlight: {
+            backgroundColor: '#49258f',
+            animated: true,
+            // height: '2.9rem'
+          },
+          highlightCaps: {
+            // animated: false,
+            // height: '2.9rem',
+            borderWidth: '3px',
+            backgroundColor: '#fff',
+            color:'black',
+            borderColor: '#0376e0',
+            // borderStyle: 'solid',
+            opacity: 1
+          }
+        }
+      }
   },
 };
 </script>
