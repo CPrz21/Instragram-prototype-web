@@ -9,7 +9,7 @@ import LoginBtn from '../components/Login.vue'
 export default {
   name: "login",
   components:{
-    LoginBtn
-  }
+    LoginBtn,
+  },
 };
 </script>
