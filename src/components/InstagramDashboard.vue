@@ -100,6 +100,11 @@
             </div>
             <div class="w-1/4 px-3">
                 <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
+                  <v-date-picker
+                    mode='range'
+                    v-model='selectedDate'
+                    show-caps>
+                  </v-date-picker>
                 </div>
             </div>
         </div>
@@ -110,7 +115,6 @@
   import ElaniinLogo from '../assets/img/elaniin.png';
   import Background from '../assets/img/superman.png';
   import MainCards from '../components/dashboard/mainCards';
-  import Calendar from '../components/dashboard/calendar';
   import '../../node_modules/slick-carousel/slick/slick.css';
   import Slick from 'vue-slick';
   import Router from '../router';
@@ -123,6 +127,7 @@
       MainCards,
       StorieIcons,
       Slick,
+
     },
     data() {
       return {
@@ -139,6 +144,20 @@
           slidesToShow: 4,
           arrows: false,
         },
+        attrs: [
+          {
+            key: 'today',
+            highlight: {
+              backgroundColor: '#ff8080',
+              // Other properties are available too, like `height` & `borderRadius`
+            },
+            dates: new Date(2018, 11, 1)
+          }
+        ],
+        selectedDate: {
+          start: new Date(2018, 11, 9),
+          end: new Date(2018, 11, 18)
+        }
       };
     },
     mounted() {

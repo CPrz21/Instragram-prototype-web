@@ -8,7 +8,7 @@ import VCalendar from 'v-calendar'
 import 'v-calendar/lib/v-calendar.min.css';
 
 export default {
-  name: "v-calendar",
+  name: "calendar",
   components:{
     'v-calendar':VCalendar
   },
