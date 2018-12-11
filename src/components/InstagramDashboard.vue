@@ -30,6 +30,7 @@
                                 ref="slick"
                                 :options="slickOptions">
                             <div class="w-full h-16 storie-image-container relative" v-for="Storie in Stories">
+                                <p class="storie-caption" v-if="Storie.caption">{{Storie.caption}}</p>
                                 <img v-if="Storie.media_type === 'IMAGE'" class="storie-image" :src="Storie.media_url"
                                      alt="storie">
                                 <video id="video" autoplay muted loop v-if="Storie.media_type === 'VIDEO'"
