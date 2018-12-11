@@ -13,8 +13,14 @@ import {
   faChevronLeft,
   faChevronRight} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import VCalendar from 'v-calendar';
+import 'v-calendar/lib/v-calendar.min.css';
 
-library.add(faEye, faHandsHelping, faCaretLeft, faCaretRight, faSignOutAlt, faChevronLeft, faChevronRight)
+Vue.use(VCalendar, {
+  firstDayOfWeek: 2,
+});
+
+library.add(faEye, faHandsHelping, faCaretLeft, faCaretRight, faSignOutAlt, faChevronLeft, faChevronRight);
 Vue.component('font-awesome-icon', FontAwesomeIcon);
 Vue.config.productionTip = false;
 
