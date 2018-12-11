@@ -92,7 +92,10 @@
                     <v-date-picker
                       :mode='mode'
                       v-model='myDate'
-                      is-inline>
+                      is-inline
+                      show-caps
+                      tint-color='#0376e0'
+                      :select-attribute="selectAttribute">
                     </v-date-picker>
                   </form>
                 </div>
@@ -227,6 +230,25 @@
       token: function () {
         return this.$route.params.token;
       },
+      selectAttribute() {
+          return {
+            highlight: {
+              backgroundColor: '#49258f',
+              animated: true,
+              // height: '2.9rem'
+            },
+            highlightCaps: {
+              // animated: false,
+              // height: '2.9rem',
+              borderWidth: '3px',
+              backgroundColor: '#fff',
+              color:'black',
+              borderColor: '#0376e0',
+              // borderStyle: 'solid',
+              opacity: 1
+            }
+          }
+        }
     },
   };
 </script>
