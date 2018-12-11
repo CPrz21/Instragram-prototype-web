@@ -99,12 +99,18 @@
                 </div>
             </div>
             <div class="w-1/4 px-3">
-                <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
-                  <v-date-picker
-                    mode='range'
-                    v-model='selectedDate'
-                    show-caps>
-                  </v-date-picker>
+                <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md" style="height:50%">
+                  <form class="text-center">
+                    <input
+                      name='myDate'
+                      type='hidden'
+                      :value='myDate' />
+                    <v-date-picker
+                      :mode='mode'
+                      v-model='myDate'
+                      is-inline>
+                    </v-date-picker>
+                  </form>
                 </div>
             </div>
         </div>
@@ -144,20 +150,11 @@
           slidesToShow: 4,
           arrows: false,
         },
-        attrs: [
-          {
-            key: 'today',
-            highlight: {
-              backgroundColor: '#ff8080',
-              // Other properties are available too, like `height` & `borderRadius`
-            },
-            dates: new Date(2018, 11, 1)
-          }
-        ],
-        selectedDate: {
-          start: new Date(2018, 11, 9),
-          end: new Date(2018, 11, 18)
-        }
+        myDate: {
+          start: new Date(),
+          end: new Date(2018, 11, 21)
+        },
+        mode:'range'
       };
     },
     mounted() {
