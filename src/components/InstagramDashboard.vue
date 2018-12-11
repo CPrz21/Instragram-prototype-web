@@ -62,6 +62,12 @@
                             <font-awesome-icon icon="chevron-left"/>
                         </div>
                     </div>
+                    <div class="media-graphics w-full flex" style="height:450px">
+                      <Graphics :token="token" :accountId="AccountID" />
+                      <div class="w-1/4 h-full">
+
+                      </div>
+                    </div>
                     <div id="media-posts" class="w-full flex">
                         <div class="media w-1/3 bg-black relative">
                             <div class="picture">
@@ -101,6 +107,7 @@
   import Router from '../router';
   import StorieIcons from '../components/dashboard/storieIcons.vue';
   import Calendar from '../components/dashboard/calendar.vue'
+  import Graphics from '../components/dashboard/dataGraphics.vue'
   var numeral = require('numeral');
   export default {
     name: 'InstagramDashboard',
@@ -108,7 +115,8 @@
       MainCards,
       StorieIcons,
       Slick,
-      Calendar
+      Calendar,
+      Graphics
     },
     data() {
       return {
@@ -120,6 +128,7 @@
         Media: '-',
         ProfilePicture: '',
         Stories: '',
+        AccountID:'',
         slickOptions: {
           //options can be used from the plugin documentation
           slidesToShow: 4,
@@ -160,6 +169,8 @@
           });
       },
       getAccountInfo(selectedIndex) {
+        this.AccountID=this.Accounts[selectedIndex].id;
+        console.log(this.AccountID)
         this.getStories(selectedIndex);
         var here = this;
         var accountID = this.Accounts[selectedIndex].id;
