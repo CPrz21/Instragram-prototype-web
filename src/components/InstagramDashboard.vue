@@ -95,7 +95,6 @@
       MainCards,
       StorieIcons,
       Slick,
-      Calendar,
       Graphics,
       Posts,
       Calendar
