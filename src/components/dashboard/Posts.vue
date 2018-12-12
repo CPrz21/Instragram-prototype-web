@@ -6,7 +6,8 @@
         <slick ref="mediaPosts" :options="slickOptions">
             <div class="media relative" v-for="post in posts">
                 <div class="picture">
-                    <img :src="post.media_url" :alt="post.caption">
+                    <img v-if="post.media_type === 'IMAGE'" :src="post.media_url" :alt="post.caption">
+                    <video v-else class="w-full" :src="post.media_url" :alt="post.caption" controls muted loop></video>
                 </div>
                 <div class="w-full border-r bg-white media-content">
                     <div class="media-text p-4" v-if="post.caption">
