@@ -10,7 +10,7 @@
                         <select @change="getAccountInfo($event.target.selectedIndex)"
                                 class="block appearance-none w-full bg-grey-lighter border border-grey-lighter text-grey-darker py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-grey mb-4"
                                 id="grid-state">
-                            <option v-for="item in Accounts" v-bind:value="item">
+                            <option v-for="item in Accounts" v-bind:value="item" :key="item.id">
                                 {{ item.name }}
                             </option>
                         </select>
@@ -35,7 +35,7 @@
                                      alt="storie">
                                 <video id="video" autoplay muted loop v-if="Storie.media_type === 'VIDEO'"
                                        class="storie-image">
-                                    <source :src="Storie.media_url" type="video/mp4"></source>
+                                    <source :src="Storie.media_url" type="video/mp4"/>
                                 </video>
                                 <div class="storie-insights absolute">
                                     <StorieIcons iconName="eye" :insightNumber="Storie.insights.impressions"
@@ -63,40 +63,17 @@
                         </div>
                     </div>
                     <div class="media-graphics w-full flex" style="height:450px">
-                      <Graphics :token="token" :accountId="AccountID" />
+                      <Graphics :token="token" :accountId="accountId" />
                       <div class="w-1/4 h-full">
 
                       </div>
-                    </div>
-                    <div id="media-posts" class="w-full flex">
-                        <div class="media w-1/3 bg-black relative">
-                            <div class="picture">
-                                <img src="https://images.pexels.com/photos/1668885/pexels-photo-1668885.jpeg?cs=srgb&dl=pexels-1668885.jpg&fm=jpg"
-                                     alt="woman">
-                            </div>
-                            <div class="absolute pin-b bg-white media-content">
-                                <div class="media-text p-4">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, amet architecto, aut
-                                    corporis illum ipsum iure minima minus perferendis possimus rem reprehenderit ut
-                                    voluptatibus! Aspernatur deserunt laborum vero voluptatum? Accusamus.
-                                </div>
-                                <div class="media-insights flex">
-                                    <div class="w-1/2 py-2 bg-grey px-4">Likes</div>
-                                    <div class="w-1/2 py-2 bg-grey-light px-4">Comments</div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <posts :token="token" :accountId="accountId"/>
                 </div>
             </div>
             <div class="w-1/4 px-3">
                 <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
-                    <v-date-picker
-                            mode='range'
-                            v-model='selectedDate'
-                            show-caps>
-                    </v-date-picker>
+                    <calendar/>
                 </div>
             </div>
         </div>
@@ -104,16 +81,14 @@
 </template>
 
 <script>
-  import ElaniinLogo from '../assets/img/elaniin.png';
-  import Background from '../assets/img/superman.png';
   import MainCards from '../components/dashboard/mainCards';
   import '../../node_modules/slick-carousel/slick/slick.css';
   import Slick from 'vue-slick';
   import Posts from '../components/dashboard/Posts';
   import StorieIcons from '../components/dashboard/storieIcons.vue';
-  import Calendar from '../components/dashboard/calendar.vue'
-  import Graphics from '../components/dashboard/dataGraphics.vue'
-  var numeral = require('numeral');
+  import Calendar from '../components/dashboard/calendar.vue';
+  import Graphics from '../components/dashboard/dataGraphics.vue';
+  import numeral from 'numeral';
   export default {
     name: 'InstagramDashboard',
     components: {
@@ -127,8 +102,6 @@
     },
     data() {
       return {
-        ElaniinLogo,
-        Background,
         accountId: null,
         Accounts: '',
         Followers: '-',
@@ -136,7 +109,6 @@
         Media: '-',
         ProfilePicture: '',
         Stories: '',
-        AccountID:'',
         slickOptions: {
           //options can be used from the plugin documentation
           slidesToShow: 4,
@@ -190,8 +162,6 @@
           });
       },
       getAccountInfo(selectedIndex) {
-        this.AccountID=this.Accounts[selectedIndex].id;
-        console.log(this.AccountID)
         this.getStories(selectedIndex);
         this.accountId = this.Accounts[selectedIndex].id;
         var here = this;
