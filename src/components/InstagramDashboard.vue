@@ -24,11 +24,14 @@
         <div id="main-section" class="w-full px-6 dashboard-body flex justify-between">
             <div class="w-3/4 px-3">
                 <div class="bg-white rounded-lg pb-12 dashboard-data shadow-md">
-                    <div id="stories-slider" class="w-full stories-slider-container relative">
+                  <div id="stories-slider" class="w-full stories-slider-container flex items-center justify-center">
+                    <h1 class="text-grey-dark">Account has no stories to show 🙁</h1>
+                  </div>
+                    <div v-if="Stories.length > 0" id="stories-slider" class="w-full stories-slider-container relative">
                         <slick
-                                id="storiesSlider"
-                                ref="slick"
-                                :options="slickOptions">
+                          id="storiesSlider"
+                          ref="slick"
+                          :options="slickOptions">
                             <div class="w-full h-16 storie-image-container relative" v-for="Storie in Stories">
                                 <p class="storie-caption" v-if="Storie.caption">{{Storie.caption}}</p>
                                 <img v-if="Storie.media_type === 'IMAGE'" class="storie-image" :src="Storie.media_url"
