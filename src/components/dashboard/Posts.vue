@@ -8,7 +8,7 @@
                 <div class="picture">
                     <img :src="post.media_url" :alt="post.caption">
                 </div>
-                <div class="absolute pin-b w-full border-r bg-white media-content">
+                <div class="w-full border-r bg-white media-content">
                     <div class="media-text p-4" v-if="post.caption">
                         {{ post.caption }}
                     </div>
