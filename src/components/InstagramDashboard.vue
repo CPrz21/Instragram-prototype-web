@@ -14,9 +14,9 @@
                                 {{ item.name }}
                             </option>
                         </select>
-                        <MainCards :title="Followers" subtitle="FOLLOWERS"/>
-                        <MainCards :title="Following" subtitle="FOLLOWING"/>
-                        <MainCards :title="Media" subtitle="MEDIA"/>
+                        <MainCards :title="Followers" subtitle="FOLLOWERS" />
+                        <MainCards :title="Following" subtitle="FOLLOWING" />
+                        <MainCards :title="Media" subtitle="MEDIA" />
                     </div>
                 </div>
             </div>
@@ -87,11 +87,16 @@
                             </div>
                         </div>
                     </div>
+                    <posts :token="token" :accountId="accountId"/>
                 </div>
             </div>
             <div class="w-1/4 px-3">
-                <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md" style="height:50%">
-                  <calendar/>
+                <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
+                    <v-date-picker
+                            mode='range'
+                            v-model='selectedDate'
+                            show-caps>
+                    </v-date-picker>
                 </div>
             </div>
         </div>
@@ -104,7 +109,7 @@
   import MainCards from '../components/dashboard/mainCards';
   import '../../node_modules/slick-carousel/slick/slick.css';
   import Slick from 'vue-slick';
-  import Router from '../router';
+  import Posts from '../components/dashboard/Posts';
   import StorieIcons from '../components/dashboard/storieIcons.vue';
   import Calendar from '../components/dashboard/calendar.vue'
   import Graphics from '../components/dashboard/dataGraphics.vue'
@@ -116,12 +121,15 @@
       StorieIcons,
       Slick,
       Calendar,
-      Graphics
+      Graphics,
+      Posts,
+      Calendar
     },
     data() {
       return {
         ElaniinLogo,
         Background,
+        accountId: null,
         Accounts: '',
         Followers: '-',
         Following: '-',
@@ -133,6 +141,19 @@
           //options can be used from the plugin documentation
           slidesToShow: 4,
           arrows: false,
+        },
+        attrs: [
+          {
+            key: 'today',
+            highlight: {
+              backgroundColor: '#ff8080',
+            },
+            dates: new Date(2018, 11, 1),
+          },
+        ],
+        selectedDate: {
+          start: new Date(2018, 11, 9),
+          end: new Date(2018, 11, 18),
         },
       };
     },
@@ -172,6 +193,7 @@
         this.AccountID=this.Accounts[selectedIndex].id;
         console.log(this.AccountID)
         this.getStories(selectedIndex);
+        this.accountId = this.Accounts[selectedIndex].id;
         var here = this;
         var accountID = this.Accounts[selectedIndex].id;
         var URL = `https://inxights-in-prototype-api.herokuapp.com/instagram/${accountID}`;
@@ -239,9 +261,9 @@
 
     .media {
         .media-content {
-            left: 5%;
-            right: 5%;
-            width: 90%;
+            left: 10%;
+            right: 10%;
+            width: 80%;
         }
     }
 </style>
