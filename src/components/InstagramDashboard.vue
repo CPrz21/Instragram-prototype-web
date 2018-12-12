@@ -24,7 +24,7 @@
         <div id="main-section" class="w-full px-6 dashboard-body flex justify-between">
             <div class="w-3/4 px-3">
                 <div class="bg-white rounded-lg pb-12 dashboard-data shadow-md">
-                  <div id="stories-slider" class="w-full stories-slider-container flex items-center justify-center">
+                  <div v-show="Stories.length <= 0" id="stories-slider" class="w-full stories-slider-container flex items-center justify-center">
                     <h1 class="text-grey-dark">Account has no stories to show 🙁</h1>
                   </div>
                     <div v-if="Stories.length > 0" id="stories-slider" class="w-full stories-slider-container relative">
@@ -110,7 +110,7 @@
         Following: '-',
         Media: '-',
         ProfilePicture: '',
-        Stories: '',
+        Stories: [],
         slickOptions: {
           //options can be used from the plugin documentation
           slidesToShow: 4,

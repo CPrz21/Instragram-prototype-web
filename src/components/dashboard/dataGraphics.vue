@@ -7,88 +7,94 @@ import * as d3 from "d3";
 export default {
   name: "Graphics",
   props:[
-    "token","accountId"
+    "token",
+    "accountId"
   ],
   data() {
     return {
       data: [
-        {
-          name: "GERMANY",
-          values: [
-            { date: "2000", price: "100" },
-            { date: "2001", price: "110" },
-            { date: "2002", price: "145" },
-            { date: "2003", price: "241" },
-            { date: "2004", price: "101" },
-            { date: "2005", price: "90" },
-            { date: "2006", price: "10" },
-            { date: "2007", price: "35" },
-            { date: "2008", price: "21" },
-            { date: "2009", price: "201" }
-          ]
-        },
-        {
-          name: "SPAIN",
-          values: [
-            { date: "2000", price: "200" },
-            { date: "2001", price: "120" },
-            { date: "2002", price: "33" },
-            { date: "2003", price: "21" },
-            { date: "2004", price: "51" },
-            { date: "2005", price: "190" },
-            { date: "2006", price: "120" },
-            { date: "2007", price: "85" },
-            { date: "2008", price: "221" },
-            { date: "2009", price: "101" }
-          ]
-        },
-        {
-          name: "EL SALVADOR",
-          values: [
-            { date: "2000", price: "50" },
-            { date: "2001", price: "10" },
-            { date: "2002", price: "5" },
-            { date: "2003", price: "71" },
-            { date: "2004", price: "20" },
-            { date: "2005", price: "9" },
-            { date: "2006", price: "220" },
-            { date: "2007", price: "235" },
-            { date: "2008", price: "61" },
-            { date: "2009", price: "10" }
-          ]
-        }
-      ]
+        // {
+        //   name: "GERMANY",
+        //   values: [
+        //     { date: "2000", price: "100" },
+        //     { date: "2001", price: "110" },
+        //     { date: "2002", price: "145" },
+        //     { date: "2003", price: "241" },
+        //     { date: "2004", price: "101" },
+        //     { date: "2005", price: "90" },
+        //     { date: "2006", price: "10" },
+        //     { date: "2007", price: "35" },
+        //     { date: "2008", price: "21" },
+        //     { date: "2009", price: "201" }
+        //   ]
+        // },
+        // {
+        //   name: "SPAIN",
+        //   values: [
+        //     { date: "2000", price: "200" },
+        //     { date: "2001", price: "120" },
+        //     { date: "2002", price: "33" },
+        //     { date: "2003", price: "21" },
+        //     { date: "2004", price: "51" },
+        //     { date: "2005", price: "190" },
+        //     { date: "2006", price: "120" },
+        //     { date: "2007", price: "85" },
+        //     { date: "2008", price: "221" },
+        //     { date: "2009", price: "101" }
+        //   ]
+        // },
+        // {
+        //   name: "EL SALVADOR",
+        //   values: [
+        //     { date: "2000", price: "50" },
+        //     { date: "2001", price: "10" },
+        //     { date: "2002", price: "5" },
+        //     { date: "2003", price: "71" },
+        //     { date: "2004", price: "20" },
+        //     { date: "2005", price: "9" },
+        //     { date: "2006", price: "220" },
+        //     { date: "2007", price: "235" },
+        //     { date: "2008", price: "61" },
+        //     { date: "2009", price: "10" }
+        //   ]
+        // }
+      ],
+      followers:''
     };
   },
-  mounted() {
-    console.log(this.token);
-    console.log(this.accountId);
-    this.drawChart();
+  // mounted() {
+  //   console.log(this.token);
+  //   console.log(this.accountId);
+  //   this.drawChart();
+  // },
+  watch: {
+    accountId(current) {
+      if (!current) {
+        return [];
+      }
+
+      const data={
+        start:'2018-10-01',
+        end:'2018-10-31'
+      }
+      const url = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
+      fetch(url, {
+        headers: {
+          Authorization: this.token,
+        },
+      }).then(async (response) => {
+        this.data.push( {
+          name: "FOLLOWERS",
+          values:await response.json()
+        });
+        this.drawChart();
+      });
+    },
   },
   methods: {
-    getUserData(accessToken) {
-      var here = this;
-      //var accessToken = 'EAABxMDfH75wBAA5HqvR5IRUYCEzr9hVs6ZBx1eOBG6IOuS1ZBnRj0hdqZCr0TUAafuMoZAj35ZAb6MtzUmAF4viAFAbdIJUAwwlra5ZAPVgkFzQgKWqaJPV2JF0RmzQBf4cJWLvsGM12fUnNN2QS8plZAWsAQxPAfMZD';
-      var url = 'https://inxights-in-prototype-api.herokuapp.com/authenticate';
-      var data = { accessToken: accessToken };
-
-      fetch(url, {
-        method: 'POST',
-        credentials: 'omit',
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => {
-          console.log(response.token);
-          here.verifyAccounts(response.token);
-        });
-    },
     drawChart() {
       var LineColors = [
-        { colorName: "GERMANY", color: "#009999" },
+        { colorName: "FOLLOWERS", color: "#009999" },
         { colorName: "SPAIN", color: "#ff0066" },
         { colorName: "EL SALVADOR", color: "#324b81" }
       ];
@@ -111,23 +117,22 @@ export default {
       var circleRadiusHover = 6;
 
       /* Format Data */
-      var parseDate = d3.timeParse("%Y");
+      var parseDate = d3.timeParse("%Y-%m-%d");
       data.forEach(function(d) {
         d.values.forEach(function(d) {
-          d.date = parseDate(d.date);
-          d.price = +d.price;
+          d.end_time = parseDate(d.end_time);
+          d.value = +d.value;
         });
       });
-
       /* Scale */
       var xScale = d3
         .scaleTime()
-        .domain(d3.extent(data[0].values, d => d.date))
+        .domain(d3.extent(data[0].values, d => d.value))
         .range([0, width - margin]);
 
       var yScale = d3
         .scaleLinear()
-        .domain([0, d3.max(data[0].values, d => d.price)])
+        .domain([0, d3.max(data[0].values, d => d.value)])
         .range([height - margin, 0]);
 
       var color = d3.scaleOrdinal(d3.schemeCategory10);
@@ -148,10 +153,10 @@ export default {
       var areas = d3
         .area()
         .x(function(d) {
-          return xScale(d.values.date);
+          return xScale(d.values.end_time);
         })
         .y(function(d) {
-          return yScale(d.values.price);
+          return yScale(d.values.value);
         })
         .y1(function(d) {
           return height - margin;
@@ -159,15 +164,15 @@ export default {
 
       var area = d3
         .area()
-        .x(d => xScale(d.date))
+        .x(d => xScale(d.end_time))
         .y0(height)
-        .y1(d => yScale(d.price));
+        .y1(d => yScale(d.value));
 
       /* Add line into SVG */
       var line = d3
         .line()
-        .x(d => xScale(d.date))
-        .y(d => yScale(d.price));
+        .x(d => xScale(d.end_time))
+        .y(d => yScale(d.value));
 
       let lines = svg.append("g").attr("class", "lines");
 
@@ -229,9 +234,9 @@ export default {
             .style("cursor", "pointer")
             .append("text")
             .attr("class", "text")
-            .text(`${d.price}`)
-            .attr("x", d => xScale(d.date) + 5)
-            .attr("y", d => yScale(d.price) - 10);
+            .text(`${d.value}`)
+            .attr("x", d => xScale(d.end_time) + 5)
+            .attr("y", d => yScale(d.end_time) - 10);
         })
         .on("mouseout", function(d) {
           d3.select(this)
@@ -242,8 +247,8 @@ export default {
             .remove();
         })
         .append("circle")
-        .attr("cx", d => xScale(d.date))
-        .attr("cy", d => yScale(d.price))
+        .attr("cx", d => xScale(d.end_time))
+        .attr("cy", d => yScale(d.value))
         .attr("r", circleRadius)
         .style("opacity", circleOpacity)
         .on("mouseover", function(d) {
