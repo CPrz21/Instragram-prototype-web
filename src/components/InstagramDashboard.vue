@@ -66,10 +66,10 @@
                         </div>
                     </div>
                     <div class="media-graphics w-full flex" style="height:450px">
-                      <Graphics :token="token" :accountId="accountId" />
-                      <div class="w-1/4 h-full">
+                        <Graphics :token="token" :accountId="accountId"/>
+                        <div class="w-1/4 h-full">
 
-                      </div>
+                        </div>
                     </div>
                     <posts :token="token" :accountId="accountId"/>
                 </div>
@@ -92,6 +92,7 @@
   import Calendar from '../components/dashboard/calendar.vue';
   import Graphics from '../components/dashboard/dataGraphics.vue';
   import numeral from 'numeral';
+
   export default {
     name: 'InstagramDashboard',
     components: {
@@ -100,7 +101,7 @@
       Slick,
       Graphics,
       Posts,
-      Calendar
+      Calendar,
     },
     data() {
       return {
@@ -206,12 +207,6 @@
       },
       prev() {
         this.$refs.slick.prev();
-      },
-      reInit() {
-        // Helpful if you have to deal with v-for to update dynamic lists
-        this.$nextTick(() => {
-          this.$refs.slick.reSlick();
-        });
       },
     },
     computed: {
