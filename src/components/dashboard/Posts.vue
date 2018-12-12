@@ -1,17 +1,26 @@
 <template>
     <div id="media-posts" class="w-full">
-        <slick ref="slick" :options="slickOptions">
+        <div class="p-4">
+            <h1 class="text-grey-dark">Latest Posts</h1>
+        </div>
+        <slick ref="mediaPosts" :options="slickOptions">
             <div class="media relative" v-for="post in posts">
                 <div class="picture">
                     <img :src="post.media_url" :alt="post.caption">
                 </div>
-                <div class="absolute pin-b bg-white media-content">
-                    <div class="media-text p-4">
+                <div class="absolute pin-b w-full border-r bg-white media-content">
+                    <div class="media-text p-4" v-if="post.caption">
                         {{ post.caption }}
                     </div>
                     <div class="media-insights flex">
-                        <div class="w-1/2 py-2 bg-grey px-4">Likes: {{ post.like_count }}</div>
-                        <div class="w-1/2 py-2 bg-grey-light px-4">Comments: {{ post.comment_count || 0 }}</div>
+                        <div class="w-1/2 py-2 bg-ix-purple text-white px-4 text-center">
+                            <font-awesome-icon icon="heart"/>
+                            {{ post.like_count }}
+                        </div>
+                        <div class="w-1/2 py-2 bg-ix-blue text-white px-4 text-center">
+                            <font-awesome-icon icon="comments"/>
+                            {{ post.comment_count || 0 }}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,14 +49,14 @@
       accountId: String,
     },
     beforeUpdate() {
-      if (this.$refs.slick) {
-        this.$refs.slick.destroy();
+      if (this.$refs.mediaPosts) {
+        this.$refs.mediaPosts.destroy();
       }
     },
     updated() {
       this.$nextTick(function () {
-        if (this.$refs.slick) {
-          this.$refs.slick.create(this.slickOptions);
+        if (this.$refs.mediaPosts) {
+          this.$refs.mediaPosts.create(this.slickOptions);
         }
       });
     },
@@ -68,7 +77,3 @@
     },
   };
 </script>
-
-<style scoped>
-
-</style>

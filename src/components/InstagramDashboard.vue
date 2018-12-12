@@ -218,20 +218,12 @@
   };
 </script>
 
-<style lang="scss">
+<style scoped lang="scss">
     #stories-slider {
         height: 300px;
     }
 
     #main-section {
         margin-top: -20px;
-    }
-
-    .media {
-        .media-content {
-            left: 10%;
-            right: 10%;
-            width: 80%;
-        }
     }
 </style>
