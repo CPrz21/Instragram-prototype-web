@@ -25,7 +25,7 @@
             <div class="w-3/4 px-3">
                 <div class="bg-white rounded-lg dashboard-data shadow-md">
                     <div v-show="Stories.length <= 0"
-                         class="w-full stories-slider-container flex items-center justify-center">
+                         class="w-full stories-slider-container flex items-center justify-center p-12">
                         <h1 class="text-grey-dark">Account has no stories to show 🙁</h1>
                     </div>
                     <div v-if="Stories.length > 0" id="stories-slider" class="w-full stories-slider-container relative">
