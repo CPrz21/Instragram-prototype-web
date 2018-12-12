@@ -1,7 +1,7 @@
 <template>
     <div id="media-posts" class="w-full">
         <slick ref="slick" :options="slickOptions">
-            <div v-for="post in posts">
+            <div class="media relative" v-for="post in posts">
                 <div class="picture">
                     <img :src="post.media_url" :alt="post.caption">
                 </div>
@@ -29,6 +29,7 @@
       posts: [],
       slickOptions: {
         slidesToShow: 3,
+        arrows: false,
       },
     }),
     components: {
@@ -37,6 +38,18 @@
     props: {
       token: String,
       accountId: String,
+    },
+    beforeUpdate() {
+      if (this.$refs.slick) {
+        this.$refs.slick.destroy();
+      }
+    },
+    updated() {
+      this.$nextTick(function () {
+        if (this.$refs.slick) {
+          this.$refs.slick.create(this.slickOptions);
+        }
+      });
     },
     watch: {
       accountId(current) {

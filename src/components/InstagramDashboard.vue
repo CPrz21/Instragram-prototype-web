@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full">
+    <div class="h-full mb-12">
         <div id="general-information" class="w-full mx-auto flex items-start p-12 bg-ix-purple dashboard-header">
             <div class="w-full flex">
                 <div class="w-1/4 flex items-center justify-center">
@@ -23,7 +23,7 @@
         </div>
         <div id="main-section" class="w-full px-6 dashboard-body flex justify-between">
             <div class="w-3/4 px-3">
-                <div class="bg-white rounded-lg pb-12 dashboard-data shadow-md">
+                <div class="bg-white rounded-lg dashboard-data shadow-md">
                     <div v-show="Stories.length <= 0"
                          class="w-full stories-slider-container flex items-center justify-center">
                         <h1 class="text-grey-dark">Account has no stories to show 🙁</h1>
