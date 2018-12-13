@@ -6,8 +6,8 @@
         <masonry cols="3" gutter="20">
             <div class="media relative mb-4" v-for="post in posts">
                 <div class="picture">
-                    <img v-if="post.media_type === 'IMAGE'" :src="post.media_url" :alt="post.caption">
-                    <video v-else class="w-full" :src="post.media_url" :alt="post.caption" controls muted loop></video>
+                    <img v-if="post.media_type === 'IMAGE'" :src="post.mediaUrl" :alt="post.caption">
+                    <video v-else class="w-full" :src="post.medialUrl" :alt="post.caption" controls muted loop></video>
                 </div>
                 <div class="w-full border-r bg-white media-content">
                     <div class="media-text p-4" v-if="post.caption">
@@ -16,11 +16,11 @@
                     <div class="media-insights flex">
                         <div class="w-1/2 py-2 bg-ix-purple text-white px-4 text-center">
                             <font-awesome-icon icon="heart"/>
-                            {{ post.like_count }}
+                            {{ post.likeCount }}
                         </div>
                         <div class="w-1/2 py-2 bg-ix-blue text-white px-4 text-center">
                             <font-awesome-icon icon="comments"/>
-                            {{ post.comment_count || 0 }}
+                            {{ post.commentsCount || 0 }}
                         </div>
                     </div>
                 </div>
