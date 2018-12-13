@@ -20,7 +20,7 @@
                                 Impressions
                             </th>
                             <td class="text-center p-2">
-                                {{ post.insights.impressions }}
+                                {{ post.insights.impressions | formatNumber }}
                             </td>
                         </tr>
                         <tr class="border-b">
@@ -28,7 +28,7 @@
                                 Reach
                             </th>
                             <td class="text-center p-2">
-                                {{ post.insights.reach }}
+                                {{ post.insights.reach | formatNumber }}
                             </td>
                         </tr>
                         <tr class="border-b">
@@ -36,7 +36,7 @@
                                 Saved
                             </th>
                             <td class="text-center p-2">
-                                {{ post.insights.saved }}
+                                {{ post.insights.saved | formatNumber }}
                             </td>
                         </tr>
                         <tr class="border-b">
@@ -44,7 +44,7 @@
                                 Engagement
                             </th>
                             <td class="text-center p-2">
-                                {{ post.insights.engagement }}
+                                {{ post.insights.engagement | formatNumber }}
                             </td>
                         </tr>
                         </tbody>
@@ -66,6 +66,8 @@
 </template>
 
 <script>
+  import numeral from 'numeral';
+
   export default {
     name: 'Posts',
     data: () => ({
@@ -78,6 +80,11 @@
     props: {
       token: String,
       accountId: String,
+    },
+    filters: {
+      formatNumber(value) {
+        return numeral(value).format('0,0');
+      },
     },
     watch: {
       accountId(current) {
