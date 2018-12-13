@@ -1,6 +1,6 @@
 <template>
   <div id="#apexchart" ref="barchart" class="w-3/4">
-    <!-- <apexchart width="500" type="line" :options="options" :series="series"></apexchart> -->
+    <apexchart v-if="options" :height="height" :width="width" type="area" :options="options" :series="series"></apexchart>
   </div>
 </template>
 
@@ -16,26 +16,21 @@ export default {
   data() {
     return {
       created:false,
+      chart:null,
       xData:[],
       yData:[],
-      options: {
-        chart: {
-          id: 'vuechart-example'
-        },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-        }
-      },
-      series: [{
-        name: 'series-1',
-        data: [30, 40, 45, 50, 49, 60, 70, 91]
-      }]
+      options: false,
+      series: false,
+      height:'',
+      width:'',
     };
   },
   components: {
       apexchart:VueApexCharts
   },
   mounted () {
+    this.height= document.getElementById('#apexchart').offsetHeight - 10;
+    this.width= document.getElementById('#apexchart').offsetWidth;
   },
 
   watch: {
@@ -55,21 +50,18 @@ export default {
         },
       }).then(async response => {
         const dataChart=await response.json();
-        if (!this.created){
-          this.drawChart(dataChart);
-          this.created = true;
-        }else{
-          this.updateChart(dataChart);
 
-        }
+          this.drawChart(dataChart);
+
       });
 
     },
   },
   methods: {
     drawChart(dataChart){
-
-      const chart = new ApexCharts(document.getElementById('#apexchart'), this.chartOptions);
+      this.yData=[];
+      this.xData=[];
+      // this.chart = new ApexCharts(this.$refs.barchart, this.chartOptions);
 
       dataChart.forEach((element, index) => {
           const t = new Date(element.end_time);
@@ -77,47 +69,51 @@ export default {
           const tMonth = t.getMonth();
           const tDay = t.getDate();
           const completeDate= tYear+'-'+tMonth+'-'+tDay;
-          this.yData.push({x: completeDate, y:element.value});
-          this.xData.push(new Date(element.end_time).getTime());
+          this.yData.push(element.value);
+          this.xData.push(completeDate);
         });
-      chart.render();
+
+      this.options= this.chartOptions;
+      this.series = this.seriesData;
     },
-    updateChart(dataChart){
-      const chart = new ApexCharts(document.getElementById('#apexchart'), this.chartOptions);
-
-      dataChart.forEach((element, index) => {
-          const t = new Date(element.end_time);
-          const tYear = t.getFullYear();
-          const tMonth = t.getMonth();
-          const tDay = t.getDate();
-          const completeDate= tYear+'-'+tMonth+'-'+tDay;
-          this.yData.push({x: completeDate, y:element.value});
-          this.xData.push(new Date(element.end_time).getTime());
-      });
-
-      chart.updateSeries([{
-        data: this.yData
-      }])
-    }
   },
   computed:{
-    chartOptions() {
+    chartOptions(){
       return {
-        chart: {
-          type: 'line',
-          height: document.getElementById('#apexchart').offsetHeight - 10,
-        },
-        series: [{
-          name: 'sales',
-          data: this.yData
-        }],
-        xaxis: {
-          // type: 'datetime',
-          // labels: {
-          //   rotate: -45
+          // chart: {
+          //   type: 'area',
           // },
-        }
+          dataLabels: {
+                enabled: false
+            },
+          stroke: {
+                curve: 'straight'
+            },
+          xaxis: {
+            categories: this.xData
+          },
+            fill: {
+                opacity: 0.5,
+                gradient: {
+                    enabled: false
+                }
+            },
+            tooltip: {
+                x: {
+                    format: "yyyy",
+                },
+                fixed: {
+                    enabled: false,
+                    position: 'topRight'
+                }
+            },
       }
+    },
+    seriesData(){
+        return [{
+          name: 'Followers',
+          data: this.yData
+        }]
     }
   }
 };
