@@ -1,9 +1,12 @@
 <template>
-    <div id="line-chart" class="line-chart text-center w-3/4 h-full"></div>
+  <div id="#apexchart" ref="barchart" class="w-3/4">
+    <!-- <apexchart width="500" type="line" :options="options" :series="series"></apexchart> -->
+  </div>
 </template>
 
 <script>
-import * as d3 from "d3";
+import VueApexCharts from 'vue-apexcharts';
+import ApexCharts from 'apexcharts';
 export default {
   name: "Graphics",
   props:[
@@ -12,61 +15,29 @@ export default {
   ],
   data() {
     return {
-      data: [
-        // {
-        //   name: "GERMANY",
-        //   values: [
-        //     { date: "2000", price: "100" },
-        //     { date: "2001", price: "110" },
-        //     { date: "2002", price: "145" },
-        //     { date: "2003", price: "241" },
-        //     { date: "2004", price: "101" },
-        //     { date: "2005", price: "90" },
-        //     { date: "2006", price: "10" },
-        //     { date: "2007", price: "35" },
-        //     { date: "2008", price: "21" },
-        //     { date: "2009", price: "201" }
-        //   ]
-        // },
-        // {
-        //   name: "SPAIN",
-        //   values: [
-        //     { date: "2000", price: "200" },
-        //     { date: "2001", price: "120" },
-        //     { date: "2002", price: "33" },
-        //     { date: "2003", price: "21" },
-        //     { date: "2004", price: "51" },
-        //     { date: "2005", price: "190" },
-        //     { date: "2006", price: "120" },
-        //     { date: "2007", price: "85" },
-        //     { date: "2008", price: "221" },
-        //     { date: "2009", price: "101" }
-        //   ]
-        // },
-        // {
-        //   name: "EL SALVADOR",
-        //   values: [
-        //     { date: "2000", price: "50" },
-        //     { date: "2001", price: "10" },
-        //     { date: "2002", price: "5" },
-        //     { date: "2003", price: "71" },
-        //     { date: "2004", price: "20" },
-        //     { date: "2005", price: "9" },
-        //     { date: "2006", price: "220" },
-        //     { date: "2007", price: "235" },
-        //     { date: "2008", price: "61" },
-        //     { date: "2009", price: "10" }
-        //   ]
-        // }
-      ],
-      followers:''
+      created:false,
+      xData:[],
+      yData:[],
+      options: {
+        chart: {
+          id: 'vuechart-example'
+        },
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+        }
+      },
+      series: [{
+        name: 'series-1',
+        data: [30, 40, 45, 50, 49, 60, 70, 91]
+      }]
     };
   },
-  // mounted() {
-  //   console.log(this.token);
-  //   console.log(this.accountId);
-  //   this.drawChart();
-  // },
+  components: {
+      apexchart:VueApexCharts
+  },
+  mounted () {
+  },
+
   watch: {
     accountId(current) {
       if (!current) {
@@ -74,219 +45,79 @@ export default {
       }
 
       const data={
-        start:'2018-10-01',
-        end:'2018-10-31'
+        start:'2018-11-01',
+        end:'2018-11-25'
       }
       const url = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
       fetch(url, {
         headers: {
           Authorization: this.token,
         },
-      }).then(async (response) => {
-        this.data.push( {
-          name: "FOLLOWERS",
-          values:await response.json()
-        });
-        this.drawChart();
+      }).then(async response => {
+        const dataChart=await response.json();
+        if (!this.created){
+          this.drawChart(dataChart);
+          this.created = true;
+        }else{
+          this.updateChart(dataChart);
+
+        }
       });
+
     },
   },
   methods: {
-    drawChart() {
-      var LineColors = [
-        { colorName: "FOLLOWERS", color: "#009999" },
-        { colorName: "SPAIN", color: "#ff0066" },
-        { colorName: "EL SALVADOR", color: "#324b81" }
-      ];
-      var chartDiv = document.getElementById("line-chart");
-      var data = this.data;
-      var margin = 50;
-      var width = chartDiv.offsetWidth - margin;
-      var height = chartDiv.offsetHeight - margin;
-      var duration = 250;
+    drawChart(dataChart){
 
-      var lineOpacity = "0.25";
-      var lineOpacityHover = "0.85";
-      var otherLinesOpacityHover = "0.1";
-      var lineStroke = "1.5px";
-      var lineStrokeHover = "2.5px";
+      const chart = new ApexCharts(document.getElementById('#apexchart'), this.chartOptions);
 
-      var circleOpacity = "0.85";
-      var circleOpacityOnLineHover = "0.25";
-      var circleRadius = 3;
-      var circleRadiusHover = 6;
-
-      /* Format Data */
-      var parseDate = d3.timeParse("%Y-%m-%d");
-      data.forEach(function(d) {
-        d.values.forEach(function(d) {
-          d.end_time = parseDate(d.end_time);
-          d.value = +d.value;
+      dataChart.forEach((element, index) => {
+          const t = new Date(element.end_time);
+          const tYear = t.getFullYear();
+          const tMonth = t.getMonth();
+          const tDay = t.getDate();
+          const completeDate= tYear+'-'+tMonth+'-'+tDay;
+          this.yData.push({x: completeDate, y:element.value});
+          this.xData.push(new Date(element.end_time).getTime());
         });
+      chart.render();
+    },
+    updateChart(dataChart){
+      const chart = new ApexCharts(document.getElementById('#apexchart'), this.chartOptions);
+
+      dataChart.forEach((element, index) => {
+          const t = new Date(element.end_time);
+          const tYear = t.getFullYear();
+          const tMonth = t.getMonth();
+          const tDay = t.getDate();
+          const completeDate= tYear+'-'+tMonth+'-'+tDay;
+          this.yData.push({x: completeDate, y:element.value});
+          this.xData.push(new Date(element.end_time).getTime());
       });
-      /* Scale */
-      var xScale = d3
-        .scaleTime()
-        .domain(d3.extent(data[0].values, d => d.value))
-        .range([0, width - margin]);
 
-      var yScale = d3
-        .scaleLinear()
-        .domain([0, d3.max(data[0].values, d => d.value)])
-        .range([height - margin, 0]);
-
-      var color = d3.scaleOrdinal(d3.schemeCategory10);
-
-      var findColors = (d, i) => {
-        return LineColors.find(color => color.colorName === d.name).color;
-      };
-
-      /* Add SVG */
-      var svg = d3
-      .select(".line-chart")
-      .append("svg")
-      .attr("width", width + margin + "px")
-      .attr("height", height  + margin + "px")
-      .append("g")
-      .attr("transform", `translate(${margin}, ${margin})`);
-
-      var areas = d3
-        .area()
-        .x(function(d) {
-          return xScale(d.values.end_time);
-        })
-        .y(function(d) {
-          return yScale(d.values.value);
-        })
-        .y1(function(d) {
-          return height - margin;
-        });
-
-      var area = d3
-        .area()
-        .x(d => xScale(d.end_time))
-        .y0(height)
-        .y1(d => yScale(d.value));
-
-      /* Add line into SVG */
-      var line = d3
-        .line()
-        .x(d => xScale(d.end_time))
-        .y(d => yScale(d.value));
-
-      let lines = svg.append("g").attr("class", "lines");
-
-      lines
-        .selectAll(".line-group")
-        .data(data)
-        .enter()
-        .append("g")
-        .attr("class", "line-group")
-        .on("mouseover", function(d, i) {
-          svg
-            .append("text")
-            .attr("class", "title-text")
-            .style("fill", findColors(d, i))
-            .text(d.name)
-            .attr("text-anchor", "middle")
-            .attr("x", (width - margin) / 2)
-            .attr("y", 5);
-        })
-        .on("mouseout", function(d) {
-          svg.select(".title-text").remove();
-        })
-        .append("svg:path")
-        .attr("class", "line")
-        .attr("d", d => line(d.values))
-        .style("stroke", (d, i) => findColors(d, i))
-        .style("opacity", lineOpacity)
-        .on("mouseover", function(d) {
-          d3.selectAll(".line").style("opacity", otherLinesOpacityHover);
-          d3.selectAll(".circle").style("opacity", circleOpacityOnLineHover);
-          d3.select(this)
-            .style("opacity", lineOpacityHover)
-            .style("stroke-width", lineStrokeHover)
-            .style("cursor", "pointer");
-        })
-        .on("mouseout", function(d) {
-          d3.selectAll(".line").style("opacity", lineOpacity);
-          d3.selectAll(".circle").style("opacity", circleOpacity);
-          d3.select(this)
-            .style("stroke-width", lineStroke)
-            .style("cursor", "none");
-        });
-
-      /* Add circles in the line */
-
-      lines
-        .selectAll("circle-group")
-        .data(data)
-        .enter()
-        .append("g")
-        .style("fill", (d, i) => findColors(d, i))
-        .selectAll("circle")
-        .data(d => d.values)
-        .enter()
-        .append("g")
-        .attr("class", "circle")
-        .on("mouseover", function(d) {
-          d3.select(this)
-            .style("cursor", "pointer")
-            .append("text")
-            .attr("class", "text")
-            .text(`${d.value}`)
-            .attr("x", d => xScale(d.end_time) + 5)
-            .attr("y", d => yScale(d.end_time) - 10);
-        })
-        .on("mouseout", function(d) {
-          d3.select(this)
-            .style("cursor", "none")
-            .transition()
-            .duration(duration)
-            .selectAll(".text")
-            .remove();
-        })
-        .append("circle")
-        .attr("cx", d => xScale(d.end_time))
-        .attr("cy", d => yScale(d.value))
-        .attr("r", circleRadius)
-        .style("opacity", circleOpacity)
-        .on("mouseover", function(d) {
-          d3.select(this)
-            .transition()
-            .duration(duration)
-            .attr("r", circleRadiusHover);
-        })
-        .on("mouseout", function(d) {
-          d3.select(this)
-            .transition()
-            .duration(duration)
-            .attr("r", circleRadius);
-        });
-
-      /* Add Axis into SVG */
-      var xAxis = d3.axisBottom(xScale).ticks(5);
-      var yAxis = d3.axisLeft(yScale).ticks(5);
-
-      svg
-        .append("g")
-        .attr("class", "x axis")
-        .attr("transform", `translate(0, ${height - margin})`)
-        .call(xAxis)
-        .append("text")
-        .attr("x", 450)
-        .attr("fill", "#000")
-        .text("Total values");
-
-      svg
-        .append("g")
-        .attr("class", "y axis")
-        .call(yAxis)
-        .append("text")
-        .attr("y", 15)
-        .attr("transform", "rotate(-90)")
-        .attr("fill", "#000")
-        .text("Total values");
+      chart.updateSeries([{
+        data: this.yData
+      }])
+    }
+  },
+  computed:{
+    chartOptions() {
+      return {
+        chart: {
+          type: 'line',
+          height: document.getElementById('#apexchart').offsetHeight - 10,
+        },
+        series: [{
+          name: 'sales',
+          data: this.yData
+        }],
+        xaxis: {
+          // type: 'datetime',
+          // labels: {
+          //   rotate: -45
+          // },
+        }
+      }
     }
   }
 };
@@ -294,37 +125,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
-.App {
-  font-family: sans-serif;
-  text-align: center;
-  height: 100vh;
-}
-svg {
-  font-family: Sans-Serif, Arial;
-}
-.line {
-  stroke-width: 2;
-  fill: none;
-}
-
-.axis path {
-  stroke: black;
-  stroke-width: 2px;
-}
-
-.text {
-  font-size: 12px;
-}
-
-.title-text {
-  font-size: 12px;
-}
-.area {
-  fill: url(#temperature-gradient);
-  stroke-width: 05px;
-}
-.chart-container{
-  width: 90%;
-  height: 90%;
-}
 </style>
