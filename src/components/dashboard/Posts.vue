@@ -4,15 +4,51 @@
             <h1 class="text-grey-dark">Latest Posts</h1>
         </div>
         <masonry cols="3" gutter="20">
-            <div class="media relative mb-4" v-for="post in posts">
+            <div class="media relative mb-4 rounded-lg overflow-hidden" v-for="post in posts">
                 <div class="picture">
-                    <img v-if="post.media_type === 'IMAGE'" :src="post.mediaUrl" :alt="post.caption">
+                    <img v-if="post.mediaType === 'IMAGE'" :src="post.mediaUrl" :alt="post.caption" class="block">
                     <video v-else class="w-full" :src="post.medialUrl" :alt="post.caption" controls muted loop></video>
                 </div>
-                <div class="w-full border-r bg-white media-content">
-                    <div class="media-text p-4" v-if="post.caption">
+                <div class="w-full bg-white media-content">
+                    <div class="media-text p-4 bg-grey-darkest text-white font-bold" v-if="post.caption">
                         {{ post.caption }}
                     </div>
+                    <table class="w-full table-auto">
+                        <tbody>
+                        <tr class="border-b">
+                            <th class="text-center p-2">
+                                Impressions
+                            </th>
+                            <td class="text-center p-2">
+                                {{ post.insights.impressions }}
+                            </td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-center p-2">
+                                Reach
+                            </th>
+                            <td class="text-center p-2">
+                                {{ post.insights.reach }}
+                            </td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-center p-2">
+                                Saved
+                            </th>
+                            <td class="text-center p-2">
+                                {{ post.insights.saved }}
+                            </td>
+                        </tr>
+                        <tr class="border-b">
+                            <th class="text-center p-2">
+                                Engagement
+                            </th>
+                            <td class="text-center p-2">
+                                {{ post.insights.engagement }}
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <div class="media-insights flex">
                         <div class="w-1/2 py-2 bg-ix-purple text-white px-4 text-center">
                             <font-awesome-icon icon="heart"/>
@@ -55,7 +91,9 @@
           headers: {
             Authorization: this.token,
           },
-        }).then(async (response) => this.posts = await response.json());
+        })
+          .then(async (response) => this.posts = await response.json())
+          .catch(() => this.posts = []);
       },
     },
   };
