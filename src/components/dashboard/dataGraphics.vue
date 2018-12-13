@@ -20,9 +20,11 @@ export default {
       xData:[],
       yData:[],
       options: false,
-      series: false,
+      series: [],
       height:'',
       width:'',
+      followers:null,
+      impressions:null
     };
   },
   components: {
@@ -43,24 +45,61 @@ export default {
         start:'2018-11-01',
         end:'2018-11-25'
       }
-      const url = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
-      fetch(url, {
+      // const url = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
+      // fetch(url, {
+      //   headers: {
+      //     Authorization: this.token,
+      //   },
+      // }).then(async response => {
+      //   const dataChart=await response.json();
+
+      //     this.drawChart(dataChart);
+
+      // });
+
+
+      const urlFollowers = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
+      const urlImpressions = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/impressions?start=${data.start}&end=${data.end}`;
+
+      const followersRequest = fetch(urlFollowers, {
         headers: {
           Authorization: this.token,
         },
-      }).then(async response => {
-        const dataChart=await response.json();
-
-          this.drawChart(dataChart);
-
       });
+      const impressionsRequest = fetch(urlImpressions, {
+        headers: {
+          Authorization: this.token,
+        },
+      });
+
+      Promise.all([
+        followersRequest,
+        impressionsRequest,
+      ])
+        .then(async values => {
+          let followers = await values[0].json();
+          let impressions = await values[1].json();
+
+          this.series = [];
+          this.options= false;
+          this.xData=[];
+          this.yData=[];
+          let followersData = await this.drawChart(followers, 'Followers');
+          let impressionsData = await this.drawChart(impressions, 'Impressions');
+
+          this.series = this.yData;
+          this.options= this.chartOptions;
+
+
+        });
 
     },
   },
   methods: {
-    drawChart(dataChart){
-      this.yData=[];
-      this.xData=[];
+    drawChart(dataChart, name){
+      var yData=[];
+      var xData=[];
+      var allData = [];
       // this.chart = new ApexCharts(this.$refs.barchart, this.chartOptions);
 
       dataChart.forEach((element, index) => {
@@ -69,13 +108,26 @@ export default {
           const tMonth = t.getMonth();
           const tDay = t.getDate();
           const completeDate= tYear+'-'+tMonth+'-'+tDay;
-          this.yData.push(element.value);
-          this.xData.push(completeDate);
+          yData.push(element.value);
+          xData.push(completeDate);
         });
 
-      this.options= this.chartOptions;
-      this.series = this.seriesData;
+      // this.options= this.chartOptions;
+      // this.series = this.seriesData;
+      allData.push(yData,xData);
+
+      this.insertSeries(allData, name);
+      return true
     },
+    insertSeries(data, name){
+
+       this.yData.push({
+          name: name,
+          data: data [0]
+        });
+
+        this.xData = data[1];
+    }
   },
   computed:{
     chartOptions(){
@@ -114,7 +166,7 @@ export default {
           name: 'Followers',
           data: this.yData
         }]
-    }
+    },
   }
 };
 </script>
