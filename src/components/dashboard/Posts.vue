@@ -1,10 +1,10 @@
 <template>
-    <div id="media-posts" class="w-full">
+    <div id="media-posts" class="w-full px-4">
         <div class="p-4">
             <h1 class="text-grey-dark">Latest Posts</h1>
         </div>
-        <slick ref="mediaPosts" :options="slickOptions">
-            <div class="media relative" v-for="post in posts">
+        <masonry cols="3" gutter="20">
+            <div class="media relative mb-4" v-for="post in posts">
                 <div class="picture">
                     <img v-if="post.media_type === 'IMAGE'" :src="post.media_url" :alt="post.caption">
                     <video v-else class="w-full" :src="post.media_url" :alt="post.caption" controls muted loop></video>
@@ -25,14 +25,11 @@
                     </div>
                 </div>
             </div>
-        </slick>
+        </masonry>
     </div>
 </template>
 
 <script>
-  import Slick from 'vue-slick';
-  import '../../../node_modules/slick-carousel/slick/slick.css';
-
   export default {
     name: 'Posts',
     data: () => ({
@@ -42,24 +39,9 @@
         arrows: false,
       },
     }),
-    components: {
-      Slick,
-    },
     props: {
       token: String,
       accountId: String,
-    },
-    beforeUpdate() {
-      if (this.$refs.mediaPosts) {
-        this.$refs.mediaPosts.destroy();
-      }
-    },
-    updated() {
-      this.$nextTick(function () {
-        if (this.$refs.mediaPosts) {
-          this.$refs.mediaPosts.create(this.slickOptions);
-        }
-      });
     },
     watch: {
       accountId(current) {
