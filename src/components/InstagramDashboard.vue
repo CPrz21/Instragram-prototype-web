@@ -24,10 +24,6 @@
         <div id="main-section" class="w-full px-6 dashboard-body flex justify-between">
             <div class="w-3/4 px-3">
                 <div class="bg-white rounded-lg dashboard-data shadow-md">
-                    <div v-show="Stories.length <= 0"
-                         class="w-full stories-slider-container flex items-center justify-center p-12">
-                        <h1 class="text-grey-dark">Account has no stories to show 🙁</h1>
-                    </div>
                     <div v-if="Stories.length > 0" id="stories-slider" class="w-full stories-slider-container relative">
                         <slick
                                 id="storiesSlider"
@@ -65,6 +61,9 @@
                              style="width:25px" v-show="Stories.length > 4">
                             <font-awesome-icon icon="chevron-left"/>
                         </div>
+                    </div>
+                    <div v-else class="w-full stories-slider-container flex items-center justify-center p-12" style="height: 300px">
+                        <h1 class="text-grey-dark">Account has no stories to show 🙁</h1>
                     </div>
                     <div class="media-graphics w-full flex" style="height:450px">
                         <Graphics :token="token" :accountId="accountId" :selectedDate="selectedDate"/>
