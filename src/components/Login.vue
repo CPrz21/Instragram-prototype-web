@@ -49,7 +49,7 @@
     },
     methods: {
       openFbLoginDialog() {
-        FB.login(this.getToken, { scope: 'email,manage_pages,instagram_basic' });
+        FB.login(this.getToken, { scope: 'email,manage_pages,instagram_basic,instagram_manage_insights' });
       },
       getToken: function (response) {
         var here = this;
