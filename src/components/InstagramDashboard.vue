@@ -75,7 +75,7 @@
             </div>
             <div class="w-1/4 px-3">
                 <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
-                    <calendar :selectedDate="selectedDate"/>
+                    <calendar :selectedDate="selectedDate" @dateUpdated="handleDateUpdated"/>
                 </div>
             </div>
         </div>
@@ -138,6 +138,9 @@
       });
     },
     methods: {
+      handleDateUpdated(value) {
+        this.selectedDate = value;
+      },
       getUserToken(token) {
         var here = this;
         var URL = 'https://inxights-in-prototype-api.herokuapp.com/instagram/accounts';

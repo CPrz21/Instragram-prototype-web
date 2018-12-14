@@ -1,15 +1,8 @@
 <template>
    <form class="text-center">
-      <input
-        name='myDate'
-        type='hidden'
-        slot-scope='{ selectedDate, updateValue }'
-        :value='selectedDate'
-        @input='updateValue($event.target.value, { formatInput: false, hidePopover: false })'
-        @change='updateValue($event.target.value, { formatInput: true, hidePopover: false })'/>
       <v-date-picker
-        :mode='mode'
-        v-model='selectedDate'
+        :mode="mode"
+        v-model="selectedDate"
         is-inline
         show-caps
         tint-color='#0376e0'
@@ -22,19 +15,17 @@
 
 export default {
   name: "calendar",
-  props:[
-    "selectedDate"
-  ],
   data() {
     return {
       mode:'range',
-      selected:''
+      selectedDate: {
+        start: new Date(),
+        end: new Date(2018, 11, 30),
+      },
     };
   },
-  methods:{
-    updateValue(e){
-      console.log(e);
-    }
+  updated() {
+    this.$emit('dateUpdated', this.selectedDate);
   },
   computed: {
     selectAttribute() {
