@@ -50,30 +50,33 @@ export default {
 
   watch: {
     accountId(current) {
-      if (!current) {
+      if (!current || !this.selectedDate) {
         return [];
-      }
+      }else{
 
-      this.summary=[];
+        this.getInsights(this.accountId, this.selectedDate);
+      }
+    },
+    selectedDate(current){
+      if (!current || !this.accountId) {
+        return [];
+      }else{
+
+        this.getInsights(this.accountId, this.selectedDate);
+      }
+    }
+
+  },
+  methods: {
+    getInsights(accountId, selectedDate){
+       this.summary=[];
       const data={
-        start:this.dateModified(this.selectedDate.start),
-        end:this.dateModified(this.selectedDate.end)
+        start:this.dateModified(selectedDate.start),
+        end:this.dateModified(selectedDate.end)
       }
-      // const url = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
-      // fetch(url, {
-      //   headers: {
-      //     Authorization: this.token,
-      //   },
-      // }).then(async response => {
-      //   const dataChart=await response.json();
 
-      //     this.drawChart(dataChart);
-
-      // });
-
-
-      const urlFollowers = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
-      const urlImpressions = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/impressions?start=${data.start}&end=${data.end}`;
+      const urlFollowers = `https://inxights-in-prototype-api.herokuapp.com/instagram/${accountId}/followers?start=${data.start}&end=${data.end}`;
+      const urlImpressions = `https://inxights-in-prototype-api.herokuapp.com/instagram/${accountId}/impressions?start=${data.start}&end=${data.end}`;
 
       const followersRequest = fetch(urlFollowers, {
         headers: {
@@ -108,13 +111,10 @@ export default {
         });
 
     },
-  },
-  methods: {
     drawChart(dataChart, name){
       var yData=[];
       var xData=[];
       var allData = [];
-      // this.chart = new ApexCharts(this.$refs.barchart, this.chartOptions);
 
       dataChart.forEach((element, index) => {
           const t = new Date(element.end_time);
