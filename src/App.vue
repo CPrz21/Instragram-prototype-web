@@ -2,8 +2,8 @@
     <div id="app">
             <div id="nav" class="container mx-auto p-6">
             <ul class="list-reset flex">
-                <li class="mr-6">
-                    <router-link class="text-blue" to="/">Logout</router-link>
+                <li class="mr-6 p-4 bg-ix-blue rounded">
+                    <router-link class="text-white no-underline" to="/"><strong>Log</strong>out</router-link>
                 </li>
             </ul>
         </div>
