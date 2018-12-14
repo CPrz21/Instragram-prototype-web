@@ -56,8 +56,6 @@
         if (response.status === 'connected') {
           FB.api('/me', { fields: 'name,email' }, function (profile) {
             FB.getLoginStatus(function (res) {
-              console.log(res.authResponse.accessToken);
-              console.log(res.authResponse.userID);
               here.getUserInfo(res.authResponse.accessToken);
 
             });
@@ -85,7 +83,6 @@
         }).then(res => res.json())
           .catch(error => console.error('Error:', error))
           .then(response => {
-            console.log(response.token);
             here.verifyAccounts(response.token);
           });
       },
@@ -111,7 +108,6 @@
       logoutFb() {
         FB.logout(function (response) {
           // user is now logged out
-          console.log(response);
         });
       },
     },
