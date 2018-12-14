@@ -160,9 +160,7 @@ export default {
   computed:{
     chartOptions(){
       return {
-          // chart: {
-          //   type: 'area',
-          // },
+          colors: ['#0376e0', '#49258f'],
           dataLabels: {
                 enabled: false
             },
