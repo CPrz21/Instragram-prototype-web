@@ -111,7 +111,6 @@
         ProfilePicture: '',
         Stories: [],
         slickOptions: {
-          //options can be used from the plugin documentation
           slidesToShow: 4,
           arrows: false,
         },

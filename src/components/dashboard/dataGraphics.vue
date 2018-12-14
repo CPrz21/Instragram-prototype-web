@@ -53,7 +53,6 @@ export default {
       if (!current || !this.selectedDate) {
         return [];
       }else{
-
         this.getInsights(this.accountId, this.selectedDate);
       }
     },
@@ -61,11 +60,9 @@ export default {
       if (!current || !this.accountId) {
         return [];
       }else{
-
         this.getInsights(this.accountId, this.selectedDate);
       }
     }
-
   },
   methods: {
     getInsights(accountId, selectedDate){
@@ -131,8 +128,6 @@ export default {
       const summary = { name: name, summary: numeral(yData.reduce((a, b) => a + b, 0)).format('0,0')};
 
       this.summary.push(summary);
-      // this.options= this.chartOptions;
-      // this.series = this.seriesData;
       allData.push(yData,xData);
 
       this.insertSeries(allData, name);
@@ -162,29 +157,33 @@ export default {
       return {
           colors: ['#0376e0', '#49258f'],
           dataLabels: {
-                enabled: false
-            },
+            enabled: false
+          },
           stroke: {
-                curve: 'straight'
-            },
+            curve: 'straight'
+          },
           xaxis: {
+            tupe:'datetime',
+            labels: {
+              format: 'DD/MM',
+            },
             categories: this.xData
           },
-            fill: {
-                opacity: 0.5,
-                gradient: {
-                    enabled: false
-                }
+          fill: {
+            opacity: 0.5,
+            gradient: {
+              enabled: false
+            }
+          },
+          tooltip: {
+            x: {
+              format: "yyyy",
             },
-            tooltip: {
-                x: {
-                    format: "yyyy",
-                },
-                fixed: {
-                    enabled: false,
-                    position: 'topRight'
-                }
-            },
+            fixed: {
+              enabled: false,
+              position: 'topRight'
+            }
+          },
       }
     },
     seriesData(){
