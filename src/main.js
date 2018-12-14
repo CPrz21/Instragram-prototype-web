@@ -22,7 +22,7 @@ import VueMasonry from 'vue-masonry-css';
 
 Vue.use(VDatePicker, {
   firstDayOfWeek: 2,
-  popoverExpanded: true,
+  locale:'en'
 });
 
 Vue.use(VueMasonry);
