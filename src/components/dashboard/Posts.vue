@@ -4,13 +4,13 @@
             <h1 class="text-grey-dark">Latest Posts</h1>
         </div>
         <masonry cols="3" gutter="20">
-            <div class="media relative mb-4 rounded-lg overflow-hidden" v-for="post in posts">
+            <div class="media relative mb-4 rounded-lg overflow-hidden shadow" :key="post.id" v-for="post in posts">
                 <div class="picture">
                     <img v-if="post.mediaType === 'IMAGE'" :src="post.mediaUrl" :alt="post.caption" class="block">
                     <video v-else class="w-full" :src="post.medialUrl" :alt="post.caption" controls muted loop></video>
                 </div>
                 <div class="w-full bg-white media-content">
-                    <div class="media-text p-4 bg-grey-darkest text-white font-bold" v-if="post.caption">
+                    <div class="media-text p-4 bg-white text-grey-darkest font-bold" v-if="post.caption">
                         <pre class="break-words whitespace-pre-wrap">{{ post.caption }}</pre>
                     </div>
                     <table class="w-full table-auto">
