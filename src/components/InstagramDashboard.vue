@@ -129,11 +129,9 @@
       }
     },
     updated() {
-      this.$nextTick(function () {
-        if (this.$refs.slick) {
-          this.$refs.slick.create(this.slickOptions);
-        }
-      });
+      if (this.$refs.slick && !this.$refs.slick.$el.classList.contains('slick-initialized')) {
+        this.$refs.slick.create();
+      }
     },
     methods: {
       handleDateUpdated(value) {
