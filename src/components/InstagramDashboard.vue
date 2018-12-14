@@ -189,7 +189,6 @@
             return response.json();
           })
           .then(function (res) {
-            console.log(res);
             here.Stories = res;
           });
       },
