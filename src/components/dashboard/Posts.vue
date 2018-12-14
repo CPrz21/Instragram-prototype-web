@@ -10,7 +10,7 @@
                     <video v-else class="w-full" :src="post.medialUrl" :alt="post.caption" controls muted loop></video>
                 </div>
                 <div class="w-full bg-white media-content">
-                    <div class="media-text p-4 bg-white text-grey-darkest font-bold" v-if="post.caption">
+                    <div class="media-text p-4 bg-white text-grey-darkest" v-if="post.caption">
                         <pre class="break-words whitespace-pre-wrap">{{ post.caption }}</pre>
                     </div>
                     <table class="w-full table-auto">
