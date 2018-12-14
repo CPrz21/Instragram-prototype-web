@@ -3,7 +3,10 @@
       <input
         name='myDate'
         type='hidden'
-        :value='selectedDate' />
+        slot-scope='{ selectedDate, updateValue }'
+        :value='selectedDate'
+        @input='updateValue($event.target.value, { formatInput: false, hidePopover: false })'
+        @change='updateValue($event.target.value, { formatInput: true, hidePopover: false })'/>
       <v-date-picker
         :mode='mode'
         v-model='selectedDate'
@@ -19,14 +22,19 @@
 
 export default {
   name: "calendar",
+  props:[
+    "selectedDate"
+  ],
   data() {
     return {
-      selectedDate: {
-        start: new Date(),
-        end: new Date(2018, 11, 21)
-      },
-      mode:'range'
+      mode:'range',
+      selected:''
     };
+  },
+  methods:{
+    updateValue(e){
+      console.log(e);
+    }
   },
   computed: {
     selectAttribute() {

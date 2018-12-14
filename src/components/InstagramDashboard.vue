@@ -67,17 +67,15 @@
                         </div>
                     </div>
                     <div class="media-graphics w-full flex" style="height:450px">
-                        <Graphics :token="token" :accountId="accountId"/>
-                        <div class="w-1/4 h-full">
+                        <Graphics :token="token" :accountId="accountId" :selectedDate="selectedDate"/>
 
-                        </div>
                     </div>
                     <posts :token="token" :accountId="accountId"/>
                 </div>
             </div>
             <div class="w-1/4 px-3">
                 <div class="bg-white rounded-lg p-6 dashboard-filter shadow-md">
-                    <calendar/>
+                    <calendar :selectedDate="selectedDate"/>
                 </div>
             </div>
         </div>
@@ -118,18 +116,9 @@
           slidesToShow: 4,
           arrows: false,
         },
-        attrs: [
-          {
-            key: 'today',
-            highlight: {
-              backgroundColor: '#ff8080',
-            },
-            dates: new Date(2018, 11, 1),
-          },
-        ],
         selectedDate: {
-          start: new Date(2018, 11, 9),
-          end: new Date(2018, 11, 18),
+          start: new Date(),
+          end: new Date(2018, 11, 30),
         },
       };
     },

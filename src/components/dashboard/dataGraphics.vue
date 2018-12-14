@@ -1,17 +1,29 @@
 <template>
-  <div id="#apexchart" ref="barchart" class="w-3/4">
-    <apexchart v-if="options" :height="height" :width="width" type="area" :options="options" :series="series"></apexchart>
+  <div class="w-full flex">
+    <div id="#apexchart" ref="barchart" class="w-3/4 h-full">
+      <apexchart v-if="options" :height="height" :width="width" type="area" :options="options" :series="series"></apexchart>
+    </div>
+    <div class="w-1/4">
+      <div class="w-full flex items-center justify-center summary-cards" style="height:50%" v-for="sum in summary">
+        <div class="text-center">
+          <h1 class="text-5xl">{{sum.summary}}</h1>
+          <p class="font-bold text-xl">{{sum.name}}</p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import VueApexCharts from 'vue-apexcharts';
 import ApexCharts from 'apexcharts';
+import numeral from 'numeral';
 export default {
   name: "Graphics",
   props:[
     "token",
-    "accountId"
+    "accountId",
+    "selectedDate"
   ],
   data() {
     return {
@@ -24,7 +36,8 @@ export default {
       height:'',
       width:'',
       followers:null,
-      impressions:null
+      impressions:null,
+      summary:[]
     };
   },
   components: {
@@ -41,9 +54,10 @@ export default {
         return [];
       }
 
+      this.summary=[];
       const data={
-        start:'2018-11-01',
-        end:'2018-11-25'
+        start:this.dateModified(this.selectedDate.start),
+        end:this.dateModified(this.selectedDate.end)
       }
       // const url = `https://inxights-in-prototype-api.herokuapp.com/instagram/${current}/followers?start=${data.start}&end=${data.end}`;
       // fetch(url, {
@@ -110,8 +124,13 @@ export default {
           const completeDate= tYear+'-'+tMonth+'-'+tDay;
           yData.push(element.value);
           xData.push(completeDate);
+
+
         });
 
+      const summary = { name: name, summary: numeral(yData.reduce((a, b) => a + b, 0)).format('0,0')};
+
+      this.summary.push(summary);
       // this.options= this.chartOptions;
       // this.series = this.seriesData;
       allData.push(yData,xData);
@@ -127,7 +146,16 @@ export default {
         });
 
         this.xData = data[1];
-    }
+    },
+    dateModified(date){
+      const t = new Date(date);
+      const tYear = t.getFullYear();
+      const tMonth = t.getMonth();
+      const tDay = t.getDate();
+      const completeDate= tYear+'-'+tMonth+'-'+tDay;
+
+      return completeDate;
+    },
   },
   computed:{
     chartOptions(){
@@ -172,5 +200,15 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style scoped lang="scss">
+.summary-cards{
+  height: 50%;
+  color: white;
+  &:nth-child(odd){
+    background: #0376e0;
+  }
+  &:nth-child(even){
+    background: #49258f;
+  }
+}
 </style>
