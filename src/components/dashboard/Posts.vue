@@ -11,7 +11,9 @@
                 </div>
                 <div class="w-full bg-white media-content">
                     <div class="media-text p-4 bg-grey-darkest text-white font-bold" v-if="post.caption">
-                        {{ post.caption }}
+                        <pre>
+                            {{ post.caption }}
+                        </pre>
                     </div>
                     <table class="w-full table-auto">
                         <tbody>
